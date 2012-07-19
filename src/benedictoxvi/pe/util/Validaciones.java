@@ -1,5 +1,7 @@
 package benedictoxvi.pe.util;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,6 +28,16 @@ public class Validaciones {
         }else{
             return false;
         }
+    }
+    
+    public boolean isDate(String date) {
+        try {
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+            Date fecha = formatoFecha.parse(date);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 	
 }
