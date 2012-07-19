@@ -1,5 +1,15 @@
 package benedictoxvi.pe.data;
-
+/**
+|--------------------------------------------------------------
+| Cliente.java
+|--------------------------------------------------------------
+| @Autor: Jean Guzman Abregu
+| @Fecha de creacion: 18/07/2012
+| @Fecha de la ultima modificacion: 18/07/2012
+| @Universidad Peruana de Ciencias Aplicadas
+|--------------------------------------------------------------
+| Clase cliente donde estan todos los atributos degun la historia de usuario
+*/
 public class Cliente {
 	public String nomCliente;
 	public String apePatCliente;
