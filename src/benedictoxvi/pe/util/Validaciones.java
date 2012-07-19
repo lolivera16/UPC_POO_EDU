@@ -49,14 +49,10 @@ public class Validaciones {
     	ArrayList<String[]> c_file = new ArrayList<String[]>();
     	 try{
     		  FileInputStream fstream = new FileInputStream("textfile.txt");
-    		  // Get the object of DataInputStream
     		  DataInputStream in = new DataInputStream(fstream);
     		  BufferedReader br = new BufferedReader(new InputStreamReader(in));
     		  String strLine;
-    		  //Read File Line By Line
     		  while ((strLine = br.readLine()) != null)   {    			  
-    		  // Print the content on the console
-    		  //System.out.println (strLine);
     			  c_file.add(strLine.split("\t"));
     		  }
     		  //Close the input stream
