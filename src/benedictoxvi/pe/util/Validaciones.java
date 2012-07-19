@@ -55,7 +55,6 @@ public class Validaciones {
     		  while ((strLine = br.readLine()) != null)   {    			  
     			  c_file.add(strLine.split("\t"));
     		  }
-    		  //Close the input stream
     		  in.close();
     		    }catch (Exception e){//Catch exception if any
     		  System.err.println("Error: " + e.getMessage());
