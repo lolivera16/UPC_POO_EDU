@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class Rol {
 	private String nombre;
 	private String descrip;
-	
 	private ArrayList<Modulo> Modulo = new ArrayList<Modulo>();
 
 	public Rol(String nombre, String descrip,
