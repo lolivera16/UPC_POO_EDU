@@ -55,6 +55,7 @@ public class Validaciones {
         try {
             SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
             Date fecha = formatoFecha.parse(date);
+            fecha.after(fecha);
         } catch (Exception e) {
             return false;
         }
