@@ -7,23 +7,23 @@ import benedictoxvi.pe.data.Compra;
 
 
 
-public class ComprasTest {	
+public class CompraTest {	
 	
 	@Test
-	public void test(){
+	public void testDataCompra(){
 		
 		Compra objCom = new Compra();
-		objCom.setConCompra("Suministro");
-		objCom.setNumCompra(3545);
+		objCom.setConcepto("Suministro");
+		objCom.setNumero(3545);
 		objCom.setFecEmision("01/12/2012");
 		objCom.setNomEmpresa("Los Deudores SAC");
-		objCom.setEstCompra("Nuevo");
+		objCom.setEstado("Nuevo");
 		objCom.setFecPago("10/12/2012");
 		objCom.setFecVencim("15/12/2012");
 		objCom.setMonSubtot(100.00);
 		objCom.setMonIGV(18.00);
 		objCom.setMonTotal(118.00);
-		objCom.setObsCompra("No existen observaciones");
+		objCom.setObservacion("No existen observaciones");
 		
 		Assert.assertArrayEquals(
 			
@@ -41,17 +41,17 @@ public class ComprasTest {
 			},
 			
 			new Object[]{
-			objCom.getConCompra(),
-			objCom.getNumCompra(),
+			objCom.getConcepto(),
+			objCom.getNumero(),
 			objCom.getFecEmision(),
 			objCom.getNomEmpresa(),
-			objCom.getEstCompra(),
+			objCom.getEstado(),
 			objCom.getFecPago(),
 			objCom.getFecVencim(),
 			objCom.getMonSubtot(),
 			objCom.getMonIGV(),
 			objCom.getMonTotal(),
-			objCom.getObsCompra()
+			objCom.getObservacion()
 			}
 			
 			);
@@ -59,29 +59,29 @@ public class ComprasTest {
 		
 		// Una 2da Compra
 		objCom = new Compra(); // reinicializar el Objeto
-		objCom.setConCompra("Accesorios de Computo");
-		objCom.setNumCompra(3546);
+		objCom.setConcepto("Accesorios de Computo");
+		objCom.setNumero(3546);
 		objCom.setFecEmision("01/01/2013");
 		objCom.setNomEmpresa("Developers EIRL");
-		objCom.setEstCompra("Cancelada");
+		objCom.setEstado("Cancelada");
 		objCom.setFecPago("15/01/2013");
 		objCom.setFecVencim("24/01/2013");
 		objCom.setMonSubtot(300.00);
 		objCom.setMonIGV(54.00);
 		objCom.setMonTotal(354.00);
-		objCom.setObsCompra("No se consiguio el presupuesto");
+		objCom.setObservacion("No se consiguio el presupuesto");
 		
-		Assert.assertEquals("Accesorios de Computo",objCom.getConCompra());
-		Assert.assertEquals(3546,objCom.getNumCompra());
+		Assert.assertEquals("Accesorios de Computo",objCom.getConcepto());
+		Assert.assertEquals(3546,objCom.getNumero());
 		Assert.assertEquals("01/01/2013",objCom.getFecEmision());
 		Assert.assertEquals("Developers EIRL",objCom.getNomEmpresa());
-		Assert.assertEquals("Cancelada",objCom.getEstCompra());
+		Assert.assertEquals("Cancelada",objCom.getEstado());
 		Assert.assertEquals("15/01/2013",objCom.getFecPago());
 		Assert.assertEquals("24/01/2013",objCom.getFecVencim());
 		Assert.assertEquals(300.00,objCom.getMonSubtot(),0);
 		Assert.assertEquals(54.00,objCom.getMonIGV(),0);
 		Assert.assertEquals(354.00,objCom.getMonTotal(),0);	
-		Assert.assertEquals("No se consiguio el presupuesto",objCom.getObsCompra());
+		Assert.assertEquals("No se consiguio el presupuesto",objCom.getObservacion());
 			
 
 	}

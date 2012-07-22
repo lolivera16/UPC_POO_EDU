@@ -1,11 +1,6 @@
 package benedictoxvi.pe.util;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,13 +17,34 @@ public class Validaciones {
 		return ret;
 	}
 	
+	public boolean isDigits(String digs){
+		//return true;
+		digs = digs.trim();
+		for(char a : digs.toCharArray()){
+			if (!Character.isDigit(a))
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean isDNI(String dni){
+		if(!isDigits(dni)) 
+			return false;
+		if (dni.trim().length()==8){
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
     public boolean isEmail(String correo) {
         Pattern pat = null;
         Matcher mat = null;
         pat = Pattern.compile("^([0-9a-zA-Z]([_.w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-w]*[0-9a-zA-Z].)+([a-zA-Z]{2,9}.)+[a-zA-Z]{2,3})$");
         mat = pat.matcher(correo);
         if (mat.find()) {
-            System.out.println("[" + mat.group() + "]");
+           // System.out.println("[" + mat.group() + "]");
             return true;
         }else{
             return false;
@@ -45,27 +61,7 @@ public class Validaciones {
         return true;
     }
     
-    public ArrayList<String[]> getDataTxt(String path){
-    	ArrayList<String[]> c_file = new ArrayList<String[]>();
-    	 try{
-    		  FileInputStream fstream = new FileInputStream("textfile.txt");
-    		  // Get the object of DataInputStream
-    		  DataInputStream in = new DataInputStream(fstream);
-    		  BufferedReader br = new BufferedReader(new InputStreamReader(in));
-    		  String strLine;
-    		  //Read File Line By Line
-    		  while ((strLine = br.readLine()) != null)   {    			  
-    		  // Print the content on the console
-    		  //System.out.println (strLine);
-    			  c_file.add(strLine.split("\t"));
-    		  }
-    		  //Close the input stream
-    		  in.close();
-    		    }catch (Exception e){//Catch exception if any
-    		  System.err.println("Error: " + e.getMessage());
-    		  }
-    	return c_file;
-    }
+
     
     public Date stringToDate(String s_fecha){
     	Date  fecha = null;
@@ -78,5 +74,13 @@ public class Validaciones {
         return fecha;
     }
     
+     public static void main(String[] args) {
+    	 Validaciones objVal = new Validaciones();
+    	 String var = ("23427343");
+    	 for(char a : var.toCharArray()){
+    		 System.out.println(Character.isDigit(a));
+    	 }
+    	 System.out.println("\n"+objVal.isDigits(var));
+	}
 	
 }

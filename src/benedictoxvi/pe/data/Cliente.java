@@ -11,6 +11,7 @@ package benedictoxvi.pe.data;
 | Clase cliente donde estan todos los atributos degun la historia de usuario
 */
 public class Cliente {
+<<<<<<< HEAD
 	public String nomCliente;
 	public String apePatCliente;
     public String apeMatCliente;
@@ -61,5 +62,9 @@ public class Cliente {
 	public void setFecConCliente(String fecConCliente) {
 		this.fecConCliente = fecConCliente;
 	}
+=======
+	
+	//Cliente
+>>>>>>> 776e2f342d99df7ebe9a3a8ff0ca621d14f0a653
 
 }
