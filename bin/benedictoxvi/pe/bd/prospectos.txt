@@ -1,0 +1,12 @@
+1000	01/01/2012	Olivera	Reyes	Luis	LOlivera@gmail.com	32432432	12124324	3324324	P
+1001	02/01/2012	Aguilar	Mendoza	Enrique	EAguilar@gmail.com	32432233	32423432	5657567	P
+1002	03/01/2012	Fernandez	Hidalgo	Jose	JFernandez@gmail.com	32432034	324234324	2567567	P
+1003	04/01/2012	Ramirez	Cabrera	Maria	MRamirez@gmail.com	32431835		7567657	P
+1004	05/01/2012	Jimenez	Stuart	Karol	KJimenez@gmail.com	32431636		5567567	P
+1005	06/01/2012	Rosas	Benancio	Max	MRosas@gmail.com	32431437		6765443	P
+1006	07/01/2012	Peres	Flores	Jean	JPeres@gmail.com	32431238		3845453	P
+1007	08/01/2012	Huarcaya	Gonzalez	Arturo	AHuarcaya@gmail.com	32431039		3535535	P
+1008	09/01/2012	Lopez	Inocencio	Carlos	CLopez@gmail.com	32430840		4543345	P
+1009	10/01/2012	Guzman	Abregu	Paolo	PGuzman@gmail.com	32430641		4543545	P
+1010	11/01/2012	Romero	Rengifo	Oscar	ORomero@gmail.com	32430442		3445553	P
+1011	12/01/2012	Bazan	Burga	Pedro	PBazan@gmail.com	32430243		3544663	P

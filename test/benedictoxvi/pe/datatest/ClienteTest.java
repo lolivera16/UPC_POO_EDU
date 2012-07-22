@@ -9,6 +9,7 @@ import benedictoxvi.pe.data.Cliente;
 
 public class ClienteTest {
 	
+	/*
 	Cliente objCli = new Cliente();
 	
 	@Before
@@ -33,6 +34,8 @@ public class ClienteTest {
 		assertEquals("jguzman@hotmail.com",objCli.getEmaCliente());
 	}
 	
+	}
+	*/
 	
 
 }

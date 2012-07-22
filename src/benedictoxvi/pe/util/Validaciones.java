@@ -45,22 +45,7 @@ public class Validaciones {
         return true;
     }
     
-    public ArrayList<String[]> getDataTxt(String path){
-    	ArrayList<String[]> c_file = new ArrayList<String[]>();
-    	 try{
-    		  FileInputStream fstream = new FileInputStream("textfile.txt");
-    		  DataInputStream in = new DataInputStream(fstream);
-    		  BufferedReader br = new BufferedReader(new InputStreamReader(in));
-    		  String strLine;
-    		  while ((strLine = br.readLine()) != null)   {    			  
-    			  c_file.add(strLine.split("\t"));
-    		  }
-    		  in.close();
-    		    }catch (Exception e){//Catch exception if any
-    		  System.err.println("Error: " + e.getMessage());
-    		  }
-    	return c_file;
-    }
+
     
     public Date stringToDate(String s_fecha){
     	Date  fecha = null;

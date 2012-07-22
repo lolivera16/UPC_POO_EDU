@@ -12,11 +12,17 @@ public class Prospecto {
 	String Telefono;
 	String Celular;
 	String Estado; 
-	// ' ' = Solo Prospecto, 'C' = Convertido a Cliente(Dado de Alta)
+	// 'P' = Solo Prospecto, 'C' = Convertido a Cliente(Dado de Alta)
 	// 'X' = Dado e baja 
 	
 	public Prospecto() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
 	}
 	
 	public int getNumProspecto() {
