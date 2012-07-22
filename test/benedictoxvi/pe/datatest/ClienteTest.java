@@ -5,18 +5,23 @@ package benedictoxvi.pe.datatest;
 |--------------------------------------------------------------
 | @Autor: Jean Guzman Abregu
 | @Fecha de creacion: 18/07/2012
-| @Fecha de la ultima modificacion: 18/07/2012
+| @Fecha de la ultima modificacion: 22/07/2012
 | @Universidad Peruana de Ciencias Aplicadas
 |--------------------------------------------------------------
 | Clase donde realizo los test del cliente
 */
 
+import static org.junit.Assert.*;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import benedictoxvi.pe.data.Cliente;
 
 public class ClienteTest {
-	
-	/*
+
 	Cliente objCli = new Cliente();
-	
+
 	@Before
 	public void contruct__(){
 		objCli.setNomCliente("Jose Luis");
@@ -27,9 +32,9 @@ public class ClienteTest {
 		objCli.setFecConCliente("12/07/2012");
 		objCli.setEmaCliente("jguzman@hotmail.com");
 	}
-	
+
 	@Test
-	public void registrarCliente(){
+	public void testDataCliente(){
 		assertEquals("Jose Luis",objCli.getNomCliente());
 		assertEquals("Guzman",objCli.getApePatCliente());
 		assertEquals("Perez",objCli.getApeMatCliente());
@@ -38,9 +43,7 @@ public class ClienteTest {
 		assertEquals("12/07/2012",objCli.getFecConCliente());
 		assertEquals("jguzman@hotmail.com",objCli.getEmaCliente());
 	}
-	
-	}
-	*/
-	
+
+
 
 }
