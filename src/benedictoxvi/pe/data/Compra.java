@@ -1,7 +1,8 @@
 package benedictoxvi.pe.data;
 
-public class Compra {
+public class Compra extends Movimiento{
 
+	/*
 	
 	String ConCompra; //Concepto
 	int NumCompra ; // N'umero de Compra
@@ -89,7 +90,7 @@ public class Compra {
 		Moneda = moneda;
 	}
 	
-	
+	*/
 	
 	
 }
