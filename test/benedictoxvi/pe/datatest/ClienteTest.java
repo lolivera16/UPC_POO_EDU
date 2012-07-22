@@ -5,7 +5,7 @@ package benedictoxvi.pe.datatest;
 |--------------------------------------------------------------
 | @Autor: Jean Guzman Abregu
 | @Fecha de creacion: 18/07/2012
-| @Fecha de la ultima modificacion: 18/07/2012
+| @Fecha de la ultima modificacion: 22/07/2012
 | @Universidad Peruana de Ciencias Aplicadas
 |--------------------------------------------------------------
 | Clase donde realizo los test del cliente
@@ -20,7 +20,6 @@ import benedictoxvi.pe.data.Cliente;
 
 public class ClienteTest {
 	
-	/*
 	Cliente objCli = new Cliente();
 	
 	@Before
@@ -35,7 +34,7 @@ public class ClienteTest {
 	}
 	
 	@Test
-	public void registrarCliente(){
+	public void testDataCliente(){
 		assertEquals("Jose Luis",objCli.getNomCliente());
 		assertEquals("Guzman",objCli.getApePatCliente());
 		assertEquals("Perez",objCli.getApeMatCliente());
@@ -45,8 +44,6 @@ public class ClienteTest {
 		assertEquals("jguzman@hotmail.com",objCli.getEmaCliente());
 	}
 	
-	}
-	*/
 	
 
 }
