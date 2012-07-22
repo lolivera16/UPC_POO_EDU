@@ -22,6 +22,27 @@ public class Validaciones {
 		return ret;
 	}
 	
+	public boolean isDigits(String digs){
+		//return true;
+		digs = digs.trim();
+		for(char a : digs.toCharArray()){
+			if (!Character.isDigit(a));
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean isDNI(String dni){
+		if(!isDigits(dni)) 
+			return false;
+		if (dni.trim().length()==8){
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
     public boolean isEmail(String correo) {
         Pattern pat = null;
         Matcher mat = null;

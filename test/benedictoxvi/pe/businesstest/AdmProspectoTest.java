@@ -2,6 +2,7 @@ package benedictoxvi.pe.businesstest;
 
 import java.util.ArrayList;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -14,8 +15,8 @@ public class AdmProspectoTest {
 
 	ArrayList<Prospecto> arrPro = new ArrayList<Prospecto>();
 	
-	@BeforeClass
-	public void bcLoadProspectosTXT(){
+	@Before
+	public  void bcLoadProspectosTXT(){
 		//1000	01/01/2012	Olivera	Reyes	Luis	LOlivera@gmail.com	32432432	12124324	3324324	P
 		Loader objLoa = new Loader();
 		Prospecto objPro = null;
@@ -38,16 +39,7 @@ public class AdmProspectoTest {
 	}
 	
 	@Test
-	public void findProspectoTest(){
-		
-	}
-	
-	public static void main(String[] args){
-		AdmProspectoTest testAdm = new AdmProspectoTest();
-		testAdm.bcLoadProspectosTXT();
-		
-		//System.out.println(("hola").contains("s"));
-		
+	public void findEncontrarProspectoTest(){
 		String nombs = "u",
 				   apepat = "",
 				   apemat = "",
@@ -56,10 +48,60 @@ public class AdmProspectoTest {
 				   tel_cel = "",
 				   fecha = "";
 			ArrayList<Prospecto> filtroPro = 
-					new AdmProspecto().findProspecto(testAdm.arrPro,nombs,apepat,apemat,mail,dni,tel_cel,fecha);
-			for(Prospecto objPro : filtroPro){
-				System.out.println("\n"+objPro.toString()+"\t"+objPro.getNombes());
-			}
+					new AdmProspecto().findProspecto(arrPro,nombs,apepat,apemat,mail,dni,tel_cel,fecha);
+	}
+	
+	@Test
+	public void findSinEncontrarProspectoTest(){
+		String nombs = "Marcos",
+				   apepat = "",
+				   apemat = "",
+				   mail = "",
+				   dni = "",
+				   tel_cel = "",
+				   fecha = "";
+			ArrayList<Prospecto> filtroPro = 
+					new AdmProspecto().findProspecto(arrPro,nombs,apepat,apemat,mail,dni,tel_cel,fecha);
+	}
+	
+	@Test
+	public void registrarProspectoTest(){
+		AdmProspecto admPro = new AdmProspecto();
+		try {
+			Prospecto objPro = new Prospecto();
+			int num_pro = 1;
+			String fecha=("01/01/2013");
+			String nombs=("Luis Enrique");
+			String apepat=("Olivera");
+			String apemat=("Aguilar");
+			String mail=("lolivera@gmail.com");
+			String dni=("71033506");
+			String telefono=("3533332");		
+			String celular=("983422323");
+			String estado=("");
+			admPro.registrarProspecto(num_pro,
+									  fecha,
+									  nombs,
+									  apepat,
+									  apemat,
+									  mail,
+									  dni,
+									  telefono,
+									  celular,
+									  estado);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
+
+	public static void main(String[] args){
+		AdmProspectoTest testAdm = new AdmProspectoTest();
+		testAdm.bcLoadProspectosTXT();
+		
+		//System.out.println(("hola").contains("s"));
+		
+		
 	}
 	
 }
