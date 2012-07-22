@@ -1,4 +1,15 @@
 package benedictoxvi.pe.datatest;
+/**
+|--------------------------------------------------------------
+| ClienteTest.java
+|--------------------------------------------------------------
+| @Autor: Jean Guzman Abregu
+| @Fecha de creacion: 18/07/2012
+| @Fecha de la ultima modificacion: 18/07/2012
+| @Universidad Peruana de Ciencias Aplicadas
+|--------------------------------------------------------------
+| Clase donde realizo los test del cliente
+*/
 
 import static org.junit.Assert.*;
 
