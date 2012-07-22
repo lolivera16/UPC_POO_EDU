@@ -7,10 +7,10 @@ import benedictoxvi.pe.data.Compra;
 
 
 
-public class ComprasTest {	
+public class CompraTest {	
 	
 	@Test
-	public void test(){
+	public void testDataCompra(){
 		
 		Compra objCom = new Compra();
 		objCom.setConCompra("Suministro");
