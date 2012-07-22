@@ -11,7 +11,7 @@ public class Loader {
     public ArrayList<String[]> getDataTxt(String path){
     	ArrayList<String[]> c_file = new ArrayList<String[]>();
     	 try{
-    		  FileInputStream fstream = new FileInputStream(path);
+    		  FileInputStream fstream = new FileInputStream(path.replaceAll("%20", " "));
     		  DataInputStream in = new DataInputStream(fstream);
     		  BufferedReader br = new BufferedReader(new InputStreamReader(in));
     		  String strLine;

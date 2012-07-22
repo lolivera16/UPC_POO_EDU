@@ -1,11 +1,6 @@
 package benedictoxvi.pe.util;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,7 +21,7 @@ public class Validaciones {
 		//return true;
 		digs = digs.trim();
 		for(char a : digs.toCharArray()){
-			if (!Character.isDigit(a));
+			if (!Character.isDigit(a))
 			return false;
 		}
 		return true;
@@ -49,7 +44,7 @@ public class Validaciones {
         pat = Pattern.compile("^([0-9a-zA-Z]([_.w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-w]*[0-9a-zA-Z].)+([a-zA-Z]{2,9}.)+[a-zA-Z]{2,3})$");
         mat = pat.matcher(correo);
         if (mat.find()) {
-            System.out.println("[" + mat.group() + "]");
+           // System.out.println("[" + mat.group() + "]");
             return true;
         }else{
             return false;
@@ -79,5 +74,13 @@ public class Validaciones {
         return fecha;
     }
     
+     public static void main(String[] args) {
+    	 Validaciones objVal = new Validaciones();
+    	 String var = ("23427343");
+    	 for(char a : var.toCharArray()){
+    		 System.out.println(Character.isDigit(a));
+    	 }
+    	 System.out.println("\n"+objVal.isDigits(var));
+	}
 	
 }

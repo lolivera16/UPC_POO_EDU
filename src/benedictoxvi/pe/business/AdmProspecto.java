@@ -41,7 +41,7 @@ public class AdmProspecto {
 		 return filtro;
 	}
 
-	public void registrarProspecto(int num_pro, String fecha, String nombs,
+	public boolean registrarProspecto(int num_pro, String fecha, String nombs,
 			String apepat, String apemat, String mail, String dni,
 			String telefono, String celular, String estado) {
 		// TODO Auto-generated method stub
@@ -58,12 +58,24 @@ public class AdmProspecto {
 		}
 		else if (!objVal.isEmail(mail)){
 			msg_err = "El Formato de Correo electronico es incorrecto";
+		}		
+		else if (!objVal.isDate(fecha)){
+			msg_err = "El Formato de Fecha debe ser dd/mm/aaaa";
 		}
 		else if (objVal.isSet(dni) && !objVal.isDNI(dni)){
 			msg_err = "El Formato de DNI is incorrecto";
 		}
-		else if (!objVal.isDate(fecha)){
-			msg_err = "El Formato de Fecha debe ser dd/mm/aaaa";
+		else if (objVal.isSet(telefono) && !objVal.isDigits(telefono)){
+			msg_err = "El Formato de Teléfono es incorrecto";
+		}
+		else if (objVal.isSet(celular) && !objVal.isDigits(celular)){
+			msg_err = "El Formato de Celular is incorrecto";
+		}
+		
+		
+		if (objVal.isSet(msg_err)){
+			new FormatException(msg_err).printStackTrace();
+		return false;
 		}
 		
 		objPro.setNumProspecto(num_pro);
@@ -76,6 +88,17 @@ public class AdmProspecto {
 		objPro.setTelefono(telefono);		
 		objPro.setCelular(celular);
 		objPro.setEstado(estado);
+		return true;
+	}
+
+	public boolean eliminarProspecto(ArrayList<Prospecto> arrPro, int i) {
+		// TODO Auto-generated method stub
+		for(Prospecto objPro : arrPro){
+			if (objPro.getNumProspecto()==(i)){
+				return arrPro.remove(objPro);
+			}
+		}
+		return false;
 	}
 
 	
