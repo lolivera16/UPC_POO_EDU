@@ -6,6 +6,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
+import benedictoxvi.pe.business.AdmCompra;
 import benedictoxvi.pe.data.Compra;
 
 public class AdmCompraTest {
