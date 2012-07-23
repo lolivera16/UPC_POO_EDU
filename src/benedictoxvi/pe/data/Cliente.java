@@ -4,7 +4,7 @@ package benedictoxvi.pe.data;
 | Cliente.java
 |--------------------------------------------------------------
 | @Autor: Jean Guzman Abregu
-| @Fecha de creacion: 18/07/2012
+| @Fecha de creacion: 22/07/2012
 | @Fecha de la ultima modificacion: 22/07/2012
 | @Universidad Peruana de Ciencias Aplicadas
 |--------------------------------------------------------------
