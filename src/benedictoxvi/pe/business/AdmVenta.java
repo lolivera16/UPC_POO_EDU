@@ -1,25 +1,49 @@
-package benedictoxvi.pe.businesstest;
+package benedictoxvi.pe.business;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import benedictoxvi.pe.data.Compra;
+import benedictoxvi.pe.data.Venta;
 import benedictoxvi.pe.util.FormatException;
 import benedictoxvi.pe.util.Validaciones;
 
-public class AdmCompra {
-
+public class AdmVenta {
+	
+	Venta objVenta = new Venta();
+	
 	Validaciones objVal = new Validaciones();
 	
-	public boolean darAltaCompraTest(ArrayList<Compra> arrCom,String concepto, int numero,
-			String fecEmision, String nomEmpresa, Double subtot, Double monIGV,
-			Double monTot, String moneda, String fecVencim, String estado, String fecPagoReal,
+	public Boolean registrarPagoConBoleta(
+			List<Venta> arrVenta,
+			int nroMovimiento,
+			String codTipoDocumento, 
+			String codCurso, 
+			String codCliente,
+			String NomCliente,
+			String concepto, 
+			String fecEmision, 
+			Double subtot, 
+			Double monIGV,
+			Double monTot, 
+			String moneda, 
+			String fecVencim, 
+			String estado,
+			String fecPagoReal, 
 			String observ) {
-		// TODO Auto-generated method stub
+
 		String msg_err = "";
-		if (!objVal.isSet(concepto)){
+		
+		
+		if (!objVal.isSet(codCurso)){
 			msg_err = "Debe ingresar el concepto de Compra";			
 		}
-		else if (!objVal.isSet(fecEmision)){
+		else if (!objVal.isSet(codCliente)){
+			msg_err = "Debe ingresar el concepto de Compra";			
+		}
+		else if (!objVal.isSet(concepto)){
+			msg_err = "Debe ingresar el concepto de Compra";			
+		}
+		else if (!objVal.isSet(codTipoDocumento)){
 			msg_err = "Debe ingresar la Fecha de Emision del Documento";
 		}
 		else if (!objVal.isDate(fecEmision)){
@@ -52,21 +76,26 @@ public class AdmCompra {
 			return false;
 		}
 		
-		Compra objCom = new Compra();
-		objCom.setConcepto(concepto);
-		objCom.setNumero(numero);
-		objCom.setFecEmision(fecEmision);
-		objCom.setNomEmpresa(nomEmpresa);
-		objCom.setEstado(estado);
-		objCom.setFecPago(fecPagoReal);
-		objCom.setFecVencim(fecVencim);
-		objCom.setMonSubtot(subtot);
-		objCom.setMonIGV(monIGV);
-		objCom.setMonTotal(monTot);
-		objCom.setObservacion(observ);
-		arrCom.add(objCom);
+		objVenta.setConcepto(concepto);
+		objVenta.setNumero(nroMovimiento);
+		objVenta.setFecEmision(fecEmision);
+		objVenta.setNomCliente(NomCliente);
+		objVenta.setEstado(estado);
+		objVenta.setFecPago(fecPagoReal);
+		objVenta.setFecVencim(fecVencim);
+		objVenta.setMonSubtot(subtot);
+		objVenta.setMonIGV(monIGV);
+		objVenta.setMonTotal(monTot);
+		objVenta.setObservacion(observ);
+		
+		arrVenta.add(objVenta);
+		
 		return true;
 	}
 
-
+	
+	
+	
+	
+	
 }

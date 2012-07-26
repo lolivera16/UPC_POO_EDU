@@ -18,13 +18,9 @@ public class Prospecto {
 	public Prospecto() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return super.toString();
-	}
-	
+
+
+
 	public int getNumProspecto() {
 		return NumProspecto;
 	}

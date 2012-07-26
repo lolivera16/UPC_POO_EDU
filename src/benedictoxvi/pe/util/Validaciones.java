@@ -9,11 +9,25 @@ public class Validaciones {
 
 	public boolean isSet(String cad){
 		boolean ret = true ;
-		if  (cad.trim().isEmpty() || cad == null)
+		if ( cad == null ) {
+			return false;
+		}
+		if  (cad.trim().isEmpty())
 			ret = false;
 		else
 			ret = true ;
 		
+		return ret;
+	}
+	
+	public boolean isSet(String[] a_objs){
+		boolean ret = true ;
+		for(String obj:a_objs){
+			if (!isSet(obj)){
+				ret = false;
+				break;
+			}
+		}
 		return ret;
 	}
 	
@@ -83,4 +97,21 @@ public class Validaciones {
     	 System.out.println("\n"+objVal.isDigits(var));
 	}
 	
+     public int dateToInt(String fecha){
+    	 String[] parts ;
+    	 int val = 0;
+    	 if (isDate(fecha)){
+    	 	 parts = fecha.split("/");
+    	 	 if (parts.length==3){
+    	 		 val = Integer.parseInt(parts[2]+parts[1]+parts[0]);
+    	 	 }
+    	 	 else {
+    	 		 new FormatException("El formato de Fecha '" + fecha + "' es incorrecto se esperaba dd/mm/aaaa").printStackTrace();
+    	 	 }
+    	 }
+    	 else{
+    		 new FormatException("El formato de Fecha '" + fecha + "' es incorrecto se esperaba dd/mm/aaaa").printStackTrace();
+    	 }
+    	 return val;
+     }
 }
