@@ -48,12 +48,8 @@ public class AdmCompraTest {
 		admCom.listaCompras(arrCom);*/
 	}
 	
-	@Test
-	public void prueba(){
-		
-	}
 	
-/*	@Test
+	@Test
 	public void cuandoFecEmisionMayorFecPago(){
 		
 		Assert.assertFalse(admCom.darAltaCompra (arrCom, 
@@ -143,9 +139,9 @@ public class AdmCompraTest {
 				 "17/12/2012", // FecPagoReal
 				 "Sin Observaciones" // Observaciones
 				));
-	}*/
+	}
 	
-/*	@Test
+	@Test
 	public void buscarEncontrarCompras(){
 		Assert.assertTrue(admCom.encontrarCompras(arrCom,
 											      "Compra", //Concepto
@@ -169,6 +165,6 @@ public class AdmCompraTest {
 												  "", // Fec.Pago
 												  "" // Estado 
 				).size() == 0);
-	}*/
+	}
 }
 
