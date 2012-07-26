@@ -1,13 +1,67 @@
 package benedictoxvi.pe.data;
 
+import java.util.ArrayList;
+
 public class GrupoEstudio {
 
 	String NomGrupo;
+	String Descripcion;
+	public String getDescripcion() {
+		return Descripcion;
+	}
+	public void setDescripcion(String descripcion) {
+		Descripcion = descripcion;
+	}
 	String NomAcademia;
 	String NomCurso;
 	String FecInicio;
 	String FecFin;
 	String Estado;
+	String[] Instructor;
+	
+	String LinkSylabus;
+	String Local;
+	int Aula;
+	Double CLatitud;
+	Double CAltitud;
+	
+
+	public String[] getInstructor() {
+		return Instructor;
+	}
+	public void setInstructor(String[] instructor) {
+		Instructor = instructor;
+	}
+	public String getLinkSylabus() {
+		return LinkSylabus;
+	}
+	public void setLinkSylabus(String linkSylabus) {
+		LinkSylabus = linkSylabus;
+	}
+	public String getLocal() {
+		return Local;
+	}
+	public void setLocal(String local) {
+		Local = local;
+	}
+	public int getAula() {
+		return Aula;
+	}
+	public void setAula(int aula) {
+		Aula = aula;
+	}
+	public Double getCLatitud() {
+		return CLatitud;
+	}
+	public void setCLatitud(Double cLatitud) {
+		CLatitud = cLatitud;
+	}
+	public Double getCAltitud() {
+		return CAltitud;
+	}
+	public void setCAltitud(Double cAltitud) {
+		CAltitud = cAltitud;
+	}
 	
 	public String getNomGrupo() {
 		return NomGrupo;
