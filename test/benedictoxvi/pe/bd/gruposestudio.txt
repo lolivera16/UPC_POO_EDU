@@ -1,0 +1,17 @@
+Grupo 1	Academia_Grupo 1	SISE	Algoritmica	01/12/2011	28/02/2012	Mario;Ernesto;Juan	http://curso_SISE_Algoritmica.edu.pe	SM	231	947.8723298	126.7698794
+Grupo 2	Academia_Grupo 2	IDAT	Matematica	20/04/2012	19/06/2012	Luis	http://curso_IDAT_Matematica.edu.pe	SM	204	632.4503634	918.755934
+Grupo 3	Academia_Grupo 3	TECSUP	Diseño Gráfico	13/07/2011	11/09/2011	Maximiliano	http://curso_TECSUP_Diseño Gráfico.edu.pe	MR	267	612.7747615	877.5840881
+Grupo 4	Academia_Grupo 4	IDATRON	DreamWeaver	20/01/2012	06/02/2012	Roberto Carlos	http://curso_IDATRON_DreamWeaver.edu.pe	SM	506	237.1094921	789.5454754
+Grupo 5	Academia_Grupo 5	UPC	FireWorks	30/09/2011	14/12/2011	Enrique	http://curso_UPC_FireWorks.edu.pe	MR	102	764.9267369	507.9031224
+Grupo 6	Academia_Grupo 6	CIBERTEC	Flash CS3	15/08/2011	28/08/2011	Joel Castillo	http://curso_CIBERTEC_Flash CS3.edu.pe	SJL	304	243.5017406	370.0045496
+Grupo 7	Academia_Grupo 7	CIMAS	Emsamblaje	03/03/2011	10/04/2011	Bryan Palomino	http://curso_CIMAS_Emsamblaje.edu.pe	SJL	607	260.7221469	48.87165274
+Grupo 8	Academia_Grupo 8	COMPUTRONIC	JAVA Básico I	15/05/2011	17/05/2011	Juan	http://curso_COMPUTRONIC_JAVA Básico I.edu.pe	SJM	101	900.0867843	442.1105867
+											
+											
+											
+											
+											
+											
+											
+											
+											

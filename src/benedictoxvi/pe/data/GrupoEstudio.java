@@ -24,7 +24,15 @@ public class GrupoEstudio {
 	int Aula;
 	Double CLatitud;
 	Double CAltitud;
-	
+
+	public String getInstructorStr(){
+		String list ="";
+		for(String ins:getInstructor()){
+			list = ins  + "/";
+		}
+		//list.
+		return list;
+	}
 
 	public String[] getInstructor() {
 		return Instructor;
