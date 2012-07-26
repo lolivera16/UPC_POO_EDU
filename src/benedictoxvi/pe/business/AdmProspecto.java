@@ -4,14 +4,28 @@ import java.util.ArrayList;
 
 import benedictoxvi.pe.data.Prospecto;
 import benedictoxvi.pe.util.FormatException;
+import benedictoxvi.pe.util.ProcessException;
 import benedictoxvi.pe.util.Validaciones;
 
 public class AdmProspecto {
 	
 	Validaciones objVal = new Validaciones();
 
+	public int listaProspectos(ArrayList<Prospecto> filtro){
+		 int i=filtro.size();
+		 if (i == 0) return 0;
+		 i = 0;
+			for(Prospecto objPro : filtro){
+				i+=1;
+				System.out.println(i+".\t"  +objPro.getNumProspecto()+"\t" + objPro.getFecProspecto() + "\t" +objPro.getNombes()+"\t" + objPro.getApePaterno() + 
+						"\t" + objPro.getApeMaterno() + "\t" + objPro.getCorreo() + "\t" + objPro.getTelefono()
+						+ "\t" + objPro.getCelular() + "\t" + objPro.getNroDNI() + "\t" + objPro.getEstado());
+			}
+		return i;
+	}
+	
 	public ArrayList<Prospecto> findProspecto(ArrayList<Prospecto> data,String nombs, String apepat,
-			String apemat, String mail, String dni, String tel_cel, String fecha) {
+			String apemat, String mail, String dni, String tel_cel, String fecha, String estado) {
 		// TODO Auto-generated method stub
 		 ArrayList<Prospecto> filtro = new ArrayList<Prospecto>();
 		 for(Prospecto objPro : data){
@@ -21,7 +35,8 @@ public class AdmProspecto {
 				 objPro.getCorreo().contains(mail) &&
 				 objPro.getNroDNI().contains(dni) &&
 				 ( objPro.getTelefono().contains(tel_cel) || objPro.getCelular().contains(tel_cel)) &&
-				 objPro.getFecProspecto().contains(fecha)){
+				 objPro.getFecProspecto().contains(fecha) &&
+				 objPro.getEstado().contains(estado)){
 				 filtro.add(objPro);
 			 }
 		 }
@@ -31,17 +46,12 @@ public class AdmProspecto {
 		 }
 		 else {
 			 System.out.println("Se encontraron '"+filtro.size()+"' conincidencias.");
-			 int i=0;
-				for(Prospecto objPro : filtro){
-					i+=1;
-					System.out.println("\n " + i + ".\t" +objPro+"\t"+objPro.getNombes());
-				}
 		 }
 		//return null;
 		 return filtro;
 	}
 
-	public boolean registrarProspecto(int num_pro, String fecha, String nombs,
+	public boolean registrarProspecto(ArrayList<Prospecto> arrPro,int num_pro, String fecha, String nombs,
 			String apepat, String apemat, String mail, String dni,
 			String telefono, String celular, String estado) {
 		// TODO Auto-generated method stub
@@ -88,7 +98,42 @@ public class AdmProspecto {
 		objPro.setTelefono(telefono);		
 		objPro.setCelular(celular);
 		objPro.setEstado(estado);
+		arrPro.add(objPro);
 		return true;
+	}
+	
+	
+	
+	public boolean deProspectoToCliente(ArrayList<Prospecto> arrPro,int num_pro){
+		return modifcarProspecto(
+				  arrPro,	// Array prospectos en memoria
+				  num_pro, //  Nro Prospecto
+				  null, // Fecha registro
+				  null, // Nombres
+				  null, // Ap.Paterno
+				  null, // Ap.Materno
+				  null, //  Correo
+				  null, //  Nro DNI
+				  null, // Telefono
+				  null, // Celular
+				  "C"  // Estado
+				  );
+	}
+	
+	public boolean deClientetoProspecto(ArrayList<Prospecto> arrPro,int num_pro){
+		return modifcarProspecto(
+				  arrPro,	// Array prospectos en memoria
+				  num_pro, //  Nro Prospecto
+				  null, // Fecha registro
+				  null, // Nombres
+				  null, // Ap.Paterno
+				  null, // Ap.Materno
+				  null, //  Correo
+				  null, //  Nro DNI
+				  null, // Telefono
+				  null, // Celular
+				  " "  // Estado
+				  );
 	}
 
 	public boolean eliminarProspecto(ArrayList<Prospecto> arrPro, int i) {
@@ -99,6 +144,61 @@ public class AdmProspecto {
 			}
 		}
 		return false;
+	}
+
+	public boolean modifcarProspecto(ArrayList<Prospecto> arrPro,int num_pro, String fecha, String nombs,
+	String apepat, String apemat, String mail, String dni,
+	String telefono, String celular, String estado){
+		boolean ret = false;
+		boolean cambio = false;
+		for (int x=0;x<arrPro.size();x++){
+			Prospecto objPro = arrPro.get(x);
+			if (objPro.getNumProspecto() == num_pro){
+				if (fecha != null) { // Cambiar Fecha prospecto
+					objPro.setFecProspecto(fecha); cambio = true;
+				}
+				if (nombs != null){ //  Cambiar Nombres
+					objPro.setNombes(nombs); cambio = true;
+				}
+				if (apepat != null){
+					objPro.setApePaterno(apepat); cambio = true;
+				}
+				if (apemat != null){
+					objPro.setApeMaterno(apemat); cambio = true;
+				}
+				if (mail != null){
+					objPro.setCorreo(mail); cambio = true;
+				}
+				if (dni != null){
+					objPro.setNroDNI(dni); cambio = true;
+				}
+				if (telefono != null){
+					objPro.setTelefono(telefono); cambio = true;
+				}
+				if (celular != null){
+					objPro.setCelular(celular); cambio = true;
+				}
+				if (estado != null){
+					if (estado.equalsIgnoreCase("C") && objPro.getEstado().trim().isEmpty()) {
+						// Dar de Alta Prospecto
+						// Buscando un Prospecto que fue transformado a Cliente y tiene el mismo DNI
+						if (findProspecto(arrPro, "", "", "", "", objPro.getNroDNI(), "", "","C").size() > 0){
+							new ProcessException("Ya existe un Cliente registrado con el Nro.Documento[" + objPro.getNroDNI() + "] que tiene el Prospecto actual").printStackTrace();
+							return false;
+						}
+					}
+					objPro.setEstado(estado); cambio = true;
+				}
+				if (cambio) {
+				arrPro.set(x, objPro);
+				}
+				ret = true;	
+				return ret;
+			}
+		}
+		// TODO Auto-generated method stub
+		new ProcessException("No se ha encontrado ningun Prospecto con el numero '" + num_pro + "'");
+		return ret;
 	}
 
 	

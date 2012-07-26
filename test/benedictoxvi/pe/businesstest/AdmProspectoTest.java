@@ -50,7 +50,7 @@ public class AdmProspectoTest {
 				   tel_cel = "",
 				   fecha = "";
 			ArrayList<Prospecto> filtroPro = 
-					admPro.findProspecto(arrPro,nombs,apepat,apemat,mail,dni,tel_cel,fecha);
+					admPro.findProspecto(arrPro,nombs,apepat,apemat,mail,dni,tel_cel,fecha,"");
 			Assert.assertTrue(filtroPro.size()>=0);
 	}
 	
@@ -65,39 +65,61 @@ public class AdmProspectoTest {
 				   tel_cel = "",
 				   fecha = "";
 			ArrayList<Prospecto> filtroPro = 
-					admPro.findProspecto(arrPro,nombs,apepat,apemat,mail,dni,tel_cel,fecha);
+					admPro.findProspecto(arrPro,nombs,apepat,apemat,mail,dni,tel_cel,fecha,"");
 			Assert.assertTrue(filtroPro.size()==0);
 	}
 	
+	
 	@Test 
 	public void darAltaProspecto(){
-		
+		admPro.listaProspectos(arrPro);
+		Assert.assertTrue(admPro.deProspectoToCliente(arrPro, 1001));
+		admPro.listaProspectos(arrPro);
+	}
+	
+	@Test 
+	public void darAltaProspectoAClienteExistente(){
+		admPro.listaProspectos(arrPro);
+		Assert.assertFalse(admPro.deProspectoToCliente(arrPro, 1005));
+		admPro.listaProspectos(arrPro);
+	}
+	
+	@Test
+	public void modificarProspecto(){
+		admPro.listaProspectos(arrPro);
+		Assert.assertTrue(admPro.modifcarProspecto(
+				  arrPro,	// Array prospectos en memoria
+				  1000, //  Nro Prospecto
+				  null, // Fecha registro
+				  "Enrique Luis", // Nombres
+				  "Aguilar", // Ap.Paterno
+				  "Olivera", // Ap.Materno
+				  null, //  Correo
+				  null, //  Nro DNI
+				  null, // Telefono
+				  null, // Celular
+				  null // Estado
+				  ));
+		admPro.listaProspectos(arrPro);
 	}
 			
 	@Test
 	public void registrarProspectoTest(){
-		System.out.println("+----------+");
-			int num_pro = 1;
-			String fecha=("01/01/2013");
-			String nombs=("Luis Enrique");
-			String apepat=("Olivera");
-			String apemat=("Aguilar");
-			String mail=("lolivera@gmail.com");
-			String dni=("71033506");
-			String telefono=("3533332");		
-			String celular=("983422323");
-			String estado=("");
-			Assert.assertTrue(admPro.registrarProspecto(num_pro,
-									  fecha,
-									  nombs,
-									  apepat,
-									  apemat,
-									  mail,
-									  dni,
-									  telefono,
-									  celular,
-									  estado));
+			Assert.assertTrue(admPro.registrarProspecto(
+									  arrPro,	// Array prospectos en memoria
+									  1, //  Nro Prospecto
+									  "01/01/2013", // Fecha registro
+									  "Luis Enrique", // Nombres
+									  "Olivera", // Ap.Paterno
+									  "Aguilar", // Ap.Materno
+									  "lolivera@gmail.com", //  Correo
+									  "34612331", //  Nro DNI
+									  "3533332", // Telefono
+									  "983422323", // Celular
+									  "" // Estado
+									  ));
 	}
+	
 	
 	@Test
 	public void eliminarProspectoTest(){
