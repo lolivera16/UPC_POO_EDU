@@ -41,17 +41,6 @@ public class Validaciones {
 		return true;
 	}
 	
-	public boolean isRUC(String ruc){
-		if(!isDigits(ruc)) 
-			return false;
-		if (ruc.trim().length()==11){
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	
 	public boolean isDNI(String dni){
 		if(!isDigits(dni)) 
 			return false;
