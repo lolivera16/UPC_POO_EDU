@@ -114,4 +114,20 @@ public class Validaciones {
     	 }
     	 return val;
      }
+     
+     
+     //Max romero
+     public boolean isRUC(String pRuc){
+ 		if(!isDigits(pRuc)) 
+ 			return false;
+ 		if (pRuc.trim().length() == 11)
+ 		{
+ 			return true;
+ 		} 
+		else 
+ 		{
+ 			return false;
+ 		}
+ 	}
+     
 }

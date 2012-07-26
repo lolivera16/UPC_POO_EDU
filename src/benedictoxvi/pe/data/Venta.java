@@ -1,15 +1,19 @@
 package benedictoxvi.pe.data;
 
-public class Venta extends Movimiento{
+import java.util.Comparator;
+
+import benedictoxvi.pe.util.Validaciones;
+
+public class Venta extends Movimiento implements Comparator<Venta>{
 
 	private String CodAlumno;
 	private String NomAlumno;
 	private String ApePatAlumno;
 	private String ApeMatAlumno;
 	
-	private String CodTipoDocumento;
+	private String CodTipoDocumento;//1 boleta, 2 Factura
 	private String CodCurso;
-	private String NomCuro;
+	private String NomCurso;
 	private double PreCurso;
 	private int CanCurso;
 	private String NomEmpleado;
@@ -19,6 +23,7 @@ public class Venta extends Movimiento{
 	private String CodCliente;
 	private String CodTipCliente;
 	private String NroRucCliente;
+	private String NroDniCliente;
 	private String NomCliente;
 	private String ApePatCliente;
 	private String ApeMatCliente;
@@ -28,6 +33,44 @@ public class Venta extends Movimiento{
 		
 	}
 	
+	@Override
+	public String toString() {
+		String tipoDocumento = "";
+		
+		if(CodTipoDocumento == "1"){
+			tipoDocumento = "BOLETA";
+		}else if(CodTipoDocumento == "2"){
+			tipoDocumento = "FACTURA";
+		}
+		
+		if(CodCurso == "C01"){
+			NomCurso = "POO";
+		}else{
+			NomCurso = "Sin Curso";
+		}
+		
+		
+		return "Movimiento [NumeroMovimiento=" + Numero 
+				//+ ", CodigoTipoDocumento=" + CodTipoDocumento 
+				+ ", tipoDocumento= " + tipoDocumento
+				//+ ", CodigoCurso="	+ CodCurso 
+				+ ", NombreCurso=" + NomCurso 
+				//+ ", CodCliente=" + CodCliente 
+				+ ", NombreCliente=" + NomCliente 
+				+ ", NroDocumentoCliente=" + NroRucCliente				
+				+ ", Concepto=" + Concepto
+				+ ", FechaEmision=" + FecEmision
+				+ ", FechaVencim=" + FecVencim 
+				+ ", FechaPago=" + FecPago
+				+ ", Estado=" + Estado 
+				+ ", Observacion=" + Observacion
+				+ ", MontoSubtot=" + MonSubtot 
+				+ ", MontoIGV=" + MonIGV
+				+ ", MontoTotal=" + MonTotal 
+				+ ", Moneda=" + Moneda 
+				//+ ", Tipo="	+ Tipo 
+				+ "]";
+	}
 	
 	
 	public String getNomAlumno() {
@@ -61,10 +104,10 @@ public class Venta extends Movimiento{
 		CodCurso = codCurso;
 	}
 	public String getNomCuro() {
-		return NomCuro;
+		return NomCurso;
 	}
 	public void setNomCuro(String nomCuro) {
-		NomCuro = nomCuro;
+		NomCurso = nomCuro;
 	}
 	public double getPreCurso() {
 		return PreCurso;
@@ -156,6 +199,39 @@ public class Venta extends Movimiento{
 	public void setNroRucCliente(String nroRucCliente) {
 		NroRucCliente = nroRucCliente;
 	}
+
+	private String getNroDniCliente() {
+		return NroDniCliente;
+	}
+
+	private void setNroDniCliente(String nroDniCliente) {
+		NroDniCliente = nroDniCliente;
+	}
+	
+	Validaciones objValidaciones = new Validaciones();
+	@Override
+	public int compare(Venta oVenta1, Venta oVenta2) {
+		
+		if (objValidaciones.dateToInt(oVenta1.getFecVencim()) == objValidaciones.dateToInt(oVenta2.getFecVencim())) 
+		{          
+			return 0;
+		} 
+		else if (objValidaciones.dateToInt(oVenta1.getFecVencim()) >= objValidaciones.dateToInt(oVenta2.getFecVencim())) 
+		{   
+			return 1;
+		} 
+		else 
+		{                           
+			return -1;
+		}
+		
+		
+		//return (-1*(objValidaciones.dateToInt(oVenta1.getFecVencim()) 
+		//			- objValidaciones.dateToInt(oVenta2.getFecVencim())));
+	}
+	
+	
+
 	
 		
 }
