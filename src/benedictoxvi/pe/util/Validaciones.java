@@ -41,6 +41,17 @@ public class Validaciones {
 		return true;
 	}
 	
+	public boolean isRUC(String ruc){
+		if(!isDigits(ruc)) 
+			return false;
+		if (ruc.trim().length()==11){
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	public boolean isDNI(String dni){
 		if(!isDigits(dni)) 
 			return false;
@@ -67,6 +78,17 @@ public class Validaciones {
     
     public boolean isDate(String date) {
         try {
+        	String[] parts ;
+        	parts= date.split("/");
+        	int year = Integer.parseInt(parts[2]);
+        	int mes = Integer.parseInt(parts[1]);
+        	int dia = Integer.parseInt(parts[0]);
+        	if (!(dia >=1 && dia<= 31))
+        		return false;
+        	if (!(mes>=1 && mes <= 12 ))
+        		return false;
+        	if (!(year>=1000 && year<=9999))
+        		return false;
             SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
             Date fecha = formatoFecha.parse(date);
         } catch (Exception e) {
