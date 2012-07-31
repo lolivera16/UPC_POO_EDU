@@ -1,5 +1,7 @@
 package benedictoxvi.pe.data;
 
+import java.util.ArrayList;
+
 public class Usuario {
 	
 	private String dni;
@@ -13,8 +15,20 @@ public class Usuario {
     private String cargo;
     private Rol rol_actual;
 	
+    // 
+    private ArrayList<Rol> roles =  new ArrayList<>();
     
-    public Usuario(String dni, String nombre, String apellidoPaterno,
+    public ArrayList<Rol> getRoles() {
+		return roles;
+	}
+
+
+	public void setRoles(ArrayList<Rol> roles) {
+		this.roles = roles;
+	}
+
+
+	public Usuario(String dni, String nombre, String apellidoPaterno,
 			String apellidoMaterno, String usuario, String password,
 			String correo, String f_ingreso, String cargo, Rol rol_actual) {
 		this.dni = dni;
@@ -27,6 +41,11 @@ public class Usuario {
 		this.f_ingreso = f_ingreso;
 		this.cargo = cargo;
 		this.rol_actual = rol_actual;
+	}
+
+
+	public Usuario() {
+		// TODO Auto-generated constructor stub
 	}
 
 

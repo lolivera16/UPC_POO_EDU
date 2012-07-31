@@ -8,6 +8,10 @@ public class Modulo {
 	private Boolean editar;
 	private Boolean eliminar;
 	
+	public Modulo(String nom_mod){
+		this.nombre = nom_mod;
+	}
+	
 	public Modulo(String nombre, Boolean acceso, Boolean adicionar,
 			Boolean editar, Boolean eliminar) {
 		this.nombre = nombre;

@@ -20,23 +20,7 @@ public class AdmProspectoTest {
 		
 		//1000	01/01/2012	Olivera	Reyes	Luis	LOlivera@gmail.com	32432432	12124324	3324324	P
 		Loader objLoa = new Loader();
-		Prospecto objPro = null;
-		String url = objLoa.getClass().getResource("../bd/Prospectos.txt").getFile();			
-		ArrayList<String[]> lisPro = objLoa.getDataTxt(url);
-		for(String[] row : lisPro){
-			 objPro = new Prospecto();
-			 objPro.setNumProspecto(Integer.parseInt(row[0]));
-				objPro.setFecProspecto(row[1]);				
-				objPro.setApePaterno(row[2]);
-				objPro.setApeMaterno(row[3]);
-				objPro.setNombes(row[4]);
-				objPro.setCorreo(row[5]);
-				objPro.setNroDNI(row[6]);
-				objPro.setTelefono(row[7]);		
-				objPro.setCelular(row[8]);
-				objPro.setEstado(row[9]);
-				arrPro.add(objPro);
-		}
+		
 	}
 	
 	@Test

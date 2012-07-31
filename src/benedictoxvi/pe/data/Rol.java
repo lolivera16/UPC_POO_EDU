@@ -15,6 +15,10 @@ public class Rol {
 			this.Modulo.add(modulo.get(i));
 		}
 	}
+	
+	public Rol() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public String getNombre() {
 		return nombre;
