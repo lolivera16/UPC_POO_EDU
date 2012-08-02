@@ -16,7 +16,7 @@ public class Usuario {
     private Rol rol_actual;
 	
     // 
-    private ArrayList<Rol> roles =  new ArrayList<>();
+    private ArrayList<Rol> roles =  new ArrayList<Rol>();
     
     public ArrayList<Rol> getRoles() {
 		return roles;
