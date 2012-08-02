@@ -10,12 +10,12 @@ import benedictoxvi.pe.data.Usuario;
 import benedictoxvi.pe.datatest.DataBD;
 import benedictoxvi.pe.util.ProcessException;
 
-public class AccesosUser {
+public class AdmAccesosUser {
 
 	ArrayList<Usuario> arrUsr = new ArrayList<Usuario>();
 	DataBD myBD = new DataBD();
 	
-	public AccesosUser() {
+	public AdmAccesosUser() {
 		// TODO Auto-generated constructor stub
 		arrUsr = myBD.getDataUsuarios();
 	}
@@ -88,6 +88,42 @@ public class AccesosUser {
 	public ArrayList<Modulo> modulosByRol(String nom_rol) {
 		// TODO Auto-generated method stub
 		return new AdmRoles().findRol(nom_rol).getModulo();
+	}
+
+	public boolean addRolUser(String nom_user, String nom_rol) {
+		// TODO Auto-generated method stub
+		Usuario usr_rol = getUserByName(nom_user);
+		if(usr_rol!=null){
+		for(Rol xrol : usr_rol.getRoles()){
+			if (xrol.getNombre().equals(nom_rol)){
+				new ProcessException("El Usuario '"+nom_user+"' ya tiene asignado el rol '"+nom_rol+"'").printStackTrace();
+				return false;
+			}
+		}
+		Rol new_rol = new AdmRoles().findRol(nom_rol);
+		if (new_rol!=null){
+			//System.out.println("Add Rol");
+		usr_rol.getRoles().add(new_rol);
+		return true;
+		}		
+		}
+		return false;
+	}
+
+	public boolean removeRolUser(String nom_usr, String nom_rol) {
+		// TODO Auto-generated method stub
+		Usuario usr = getUserByName(nom_usr);
+		if (usr!=null){
+			for(Rol xrol:usr.getRoles()){
+				if (xrol.getNombre().equals(nom_rol)){
+					usr.getRoles().remove(xrol);
+					return true;
+				}
+			}
+			new ProcessException("El Usuario '"+nom_usr+"' no tiene asignado el rol '"+nom_rol+"'").printStackTrace();
+			return false;
+		}
+		return false;
 	}
 
 }
