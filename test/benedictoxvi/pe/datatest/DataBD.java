@@ -21,11 +21,11 @@ public final class DataBD {
 	
 	public DataBD() {
 		// TODO Auto-generated constructor stub
-		loadRoles();
-		loadCompras();
-		loadGrupoEstudio();
-		loadUsuarios();
-		loadProspectos();
+		dataRoles = loadRoles();
+		dataCompras = loadCompras();
+		dataGrupoEstudio = loadGrupoEstudio();
+		dataUsuarios = loadUsuarios();
+		dataProspecto = loadProspectos();
 	}
 	
 	public ArrayList<Usuario> getDataUsuarios() {
@@ -68,7 +68,8 @@ public final class DataBD {
 		this.dataRoles = dataRoles;
 	}
 
-	public void loadRoles(){
+	public ArrayList<Rol> loadRoles(){
+		ArrayList<Rol> roles = new ArrayList<Rol>();
 		Rol objPro = null;
 		String url = objLoa.getClass().getResource("../bd/roles.txt").getFile();
 		//System.out.println(url);
@@ -90,11 +91,13 @@ public final class DataBD {
 					 mod_user.setEliminar((Integer.parseInt(parts[4])==0)?false:true);
 					 objPro.getModulo().add(mod_user);
 			 }
-				dataRoles.add(objPro);
+				roles.add(objPro);
 		}
+		return roles;
 	}
 	
-	public void loadProspectos(){
+	public ArrayList<Prospecto> loadProspectos(){
+		ArrayList<Prospecto> prospectos = new ArrayList<Prospecto>();
 		Prospecto objPro = null;
 		String url = objLoa.getClass().getResource("../bd/Prospectos.txt").getFile();			
 		ArrayList<String[]> lisPro = objLoa.getDataTxt(url);
@@ -110,15 +113,18 @@ public final class DataBD {
 				objPro.setTelefono(row[7]);		
 				objPro.setCelular(row[8]);
 				objPro.setEstado(row[9]);
-				dataProspecto.add(objPro);
+				//dataProspecto.add(objPro);
+				prospectos.add(objPro);
 		}
+		return prospectos;
 	}
 	
 	public void loadClientes(){
 		
 	}
 	
-	public void loadGrupoEstudio(){
+	public ArrayList<GrupoEstudio> loadGrupoEstudio(){
+		ArrayList<GrupoEstudio> grupos = new ArrayList<GrupoEstudio>();
 		GrupoEstudio objGru = null;
 		String url = objLoa.getClass().getResource("../bd/gruposestudio.txt").getFile();
 		//System.out.println(url.substring(1));
@@ -139,11 +145,13 @@ public final class DataBD {
 			 objGru.setAula(Integer.parseInt(row[9]));
 			 objGru.setCAltitud(Double.parseDouble(row[10]));
 			 objGru.setCLatitud(Double.parseDouble(row[11]));
-			 dataGrupoEstudio.add(objGru);
+			 grupos.add(objGru);
 		}
+		return grupos;
 	}
 	
-	public void loadCompras(){
+	public ArrayList<Compra> loadCompras(){
+		 ArrayList<Compra> compras = new  ArrayList<Compra>();
 		Compra objPro = null;
 		String url = objLoa.getClass().getResource("../bd/compras.txt").getFile();			
 		ArrayList<String[]> lisPro = objLoa.getDataTxt(url);
@@ -161,11 +169,13 @@ public final class DataBD {
 			 objPro.setEstado(row[9]);
 			 objPro.setFecPago(row[10]);
 			 objPro.setObservacion(row[11]);
-			 dataCompras.add(objPro);
+			 compras.add(objPro);
 		}
+		 return compras;
 	}
 	
-	public void  loadUsuarios(){		
+	public ArrayList<Usuario>  loadUsuarios(){
+		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		Usuario objPro = null;		
 		String url = objLoa.getClass().getResource("../bd/usuarios.txt").getFile();			
 		ArrayList<String[]> lisPro = objLoa.getDataTxt(url);
@@ -189,8 +199,9 @@ public final class DataBD {
 			 }
 			 objPro.setCargo(row[7]);
 			 objPro.setDni(row[8]);
-			 dataUsuarios.add(objPro);
+			 usuarios.add(objPro);
 		}
+		return usuarios;
 	}
 	
 }

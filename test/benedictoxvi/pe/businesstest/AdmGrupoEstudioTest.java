@@ -17,35 +17,6 @@ public class AdmGrupoEstudioTest {
 	AdmGrupoEstudio admGru = new AdmGrupoEstudio();
 	
 	
-	@Before
-	public void  bcLoadGruposTXT(){
-		Loader objLoa = new Loader();
-		GrupoEstudio objGru = null;
-		String url = objLoa.getClass().getResource("../bd/gruposestudio.txt").getFile();
-		//System.out.println(url.substring(1));
-		ArrayList<String[]> lisPro = objLoa.getDataTxt(url.substring(1));
-		for(String[] row : lisPro){
-			if (row.length == 0) continue;
-			 objGru = new GrupoEstudio();
-			 objGru.setNomGrupo(row[0]);
-			 objGru.setDescripcion(row[1]);
-			 objGru.setNomAcademia(row[2]);
-			 objGru.setNomCurso(row[3]);
-			 objGru.setFecInicio(row[4]);
-			 objGru.setFecFin(row[5]);
-			 objGru.setInstructor(row[6].split(";"));
-			 objGru.setLinkSylabus(row[7]);
-			 objGru.setLocal(row[8]);
-			 objGru.setEstado("");
-			 objGru.setAula(Integer.parseInt(row[9]));
-			 objGru.setCAltitud(Double.parseDouble(row[10]));
-			 objGru.setCLatitud(Double.parseDouble(row[11]));
-			 admGru.getArrGrupos().add(objGru);
-		}
-		admGru.listarGruposEstudio();
-		//admGru.setArrGrupos(arrGru);
-	}
-	
 	@Test
 	public void encontrarGruposEstudioTest(){
 		Assert.assertTrue(admGru.encontrarGrupoEstudio("",  // NomGrupo

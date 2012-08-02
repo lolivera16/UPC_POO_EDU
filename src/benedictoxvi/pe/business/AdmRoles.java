@@ -4,11 +4,19 @@ import java.util.ArrayList;
 
 import benedictoxvi.pe.data.Modulo;
 import benedictoxvi.pe.data.Rol;
+import benedictoxvi.pe.datatest.DataBD;
+import benedictoxvi.pe.util.ProcessException;
 
 public class AdmRoles {
 		
 	private ArrayList<Rol> roles = new ArrayList<Rol>();
-
+	DataBD bd = new DataBD();
+	
+	public AdmRoles() {
+		// TODO Auto-generated constructor stub
+		roles = bd.getDataRoles();
+	}
+	
     public ArrayList<Rol> getRoles() {
         return roles;
     }
@@ -104,25 +112,36 @@ public class AdmRoles {
 	        return Ok;
 	}
 	
-	public boolean buscaRol(String rol, ArrayList<Rol> dbRol){
+	public boolean buscaRol(String rol){
 	        boolean encuentra=false;
-	        for(int x=0;x<dbRol.size();x++){
-	            if(dbRol.get(x).getNombre().equals(rol)){
-	                System.out.println("Rol encontrado: " + dbRol.get(x).getNombre() + " " + dbRol.get(x).getDescrip());
+	        for(int x=0;x<roles.size();x++){
+	            if(roles.get(x).getNombre().equals(rol)){
+	                System.out.println("Rol encontrado: " + roles.get(x).getNombre() + " " + roles.get(x).getDescrip());
 	                encuentra = true;
 	                break;
 	            }
 	        }
 	        return encuentra;
 	}
+	
+	public Rol findRol(String nom_rol){
+		//Rol rol = null;
+		for(Rol xrol : roles){
+			if (xrol.getNombre().equals(nom_rol)){
+				return xrol;
+			}
+		}
+		new ProcessException("El Rol '"+nom_rol+"' no esta registrado.").printStackTrace();
+		return null;
+	}
 	    
-	public void eliminaRol(String rol, ArrayList<Rol> dbRol){
+	public void eliminaRol(String rol){
 	        boolean encontrado=false;
-	        for(int x=0;x<dbRol.size();x++){
-	            if(dbRol.get(x).getNombre().equals(rol)){
+	        for(int x=0;x<roles.size();x++){
+	            if(roles.get(x).getNombre().equals(rol)){
 	                encontrado=true;
-	                System.out.println("Rol será eliminado: " + dbRol.get(x).getNombre() + " " + dbRol.get(x).getDescrip());
-	                dbRol.remove(x);
+	                System.out.println("Rol será eliminado: " + roles.get(x).getNombre() + " " + roles.get(x).getDescrip());
+	                roles.remove(x);
 	                break;
 	                }
 	

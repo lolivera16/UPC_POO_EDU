@@ -3,6 +3,7 @@ package benedictoxvi.pe.business;
 import java.util.ArrayList;
 
 import benedictoxvi.pe.data.Prospecto;
+import benedictoxvi.pe.datatest.DataBD;
 import benedictoxvi.pe.util.FormatException;
 import benedictoxvi.pe.util.ProcessException;
 import benedictoxvi.pe.util.Validaciones;
@@ -10,12 +11,19 @@ import benedictoxvi.pe.util.Validaciones;
 public class AdmProspecto {
 	
 	Validaciones objVal = new Validaciones();
+	ArrayList<Prospecto> arrPro = new ArrayList<Prospecto>();
+	DataBD bd = new DataBD();
 
-	public int listaProspectos(ArrayList<Prospecto> filtro){
-		 int i=filtro.size();
+	public AdmProspecto() {
+		// TODO Auto-generated constructor stub
+		arrPro = bd.getDataProspecto();
+	}
+	
+	public int listaProspectos(){
+		 int i=arrPro.size();
 		 if (i == 0) return 0;
 		 i = 0;
-			for(Prospecto objPro : filtro){
+			for(Prospecto objPro : arrPro){
 				i+=1;
 				System.out.println(i+".\t"  +objPro.getNumProspecto()+"\t" + objPro.getFecProspecto() + "\t" +objPro.getNombes()+"\t" + objPro.getApePaterno() + 
 						"\t" + objPro.getApeMaterno() + "\t" + objPro.getCorreo() + "\t" + objPro.getTelefono()
@@ -24,11 +32,11 @@ public class AdmProspecto {
 		return i;
 	}
 	
-	public ArrayList<Prospecto> findProspecto(ArrayList<Prospecto> data,String nombs, String apepat,
+	public ArrayList<Prospecto> findProspecto(String nombs, String apepat,
 			String apemat, String mail, String dni, String tel_cel, String fecha, String estado) {
 		// TODO Auto-generated method stub
 		 ArrayList<Prospecto> filtro = new ArrayList<Prospecto>();
-		 for(Prospecto objPro : data){
+		 for(Prospecto objPro : arrPro){
 			 if (objPro.getNombes().contains(nombs) &&
 				 objPro.getApePaterno().contains(apepat) &&
 				 objPro.getApeMaterno().contains(apemat) &&
@@ -51,7 +59,7 @@ public class AdmProspecto {
 		 return filtro;
 	}
 
-	public boolean registrarProspecto(ArrayList<Prospecto> arrPro,int num_pro, String fecha, String nombs,
+	public boolean registrarProspecto(int num_pro, String fecha, String nombs,
 			String apepat, String apemat, String mail, String dni,
 			String telefono, String celular, String estado) {
 		// TODO Auto-generated method stub
@@ -104,9 +112,8 @@ public class AdmProspecto {
 	
 	
 	
-	public boolean deProspectoToCliente(ArrayList<Prospecto> arrPro,int num_pro){
+	public boolean deProspectoToCliente(int num_pro){
 		return modifcarProspecto(
-				  arrPro,	// Array prospectos en memoria
 				  num_pro, //  Nro Prospecto
 				  null, // Fecha registro
 				  null, // Nombres
@@ -122,7 +129,6 @@ public class AdmProspecto {
 	
 	public boolean deClientetoProspecto(ArrayList<Prospecto> arrPro,int num_pro){
 		return modifcarProspecto(
-				  arrPro,	// Array prospectos en memoria
 				  num_pro, //  Nro Prospecto
 				  null, // Fecha registro
 				  null, // Nombres
@@ -136,7 +142,7 @@ public class AdmProspecto {
 				  );
 	}
 
-	public boolean eliminarProspecto(ArrayList<Prospecto> arrPro, int i) {
+	public boolean eliminarProspecto(int i) {
 		// TODO Auto-generated method stub
 		for(Prospecto objPro : arrPro){
 			if (objPro.getNumProspecto()==(i)){
@@ -146,7 +152,7 @@ public class AdmProspecto {
 		return false;
 	}
 
-	public boolean modifcarProspecto(ArrayList<Prospecto> arrPro,int num_pro, String fecha, String nombs,
+	public boolean modifcarProspecto(int num_pro, String fecha, String nombs,
 	String apepat, String apemat, String mail, String dni,
 	String telefono, String celular, String estado){
 		boolean ret = false;
@@ -182,7 +188,7 @@ public class AdmProspecto {
 					if (estado.equalsIgnoreCase("C") && objPro.getEstado().trim().isEmpty()) {
 						// Dar de Alta Prospecto
 						// Buscando un Prospecto que fue transformado a Cliente y tiene el mismo DNI
-						if (findProspecto(arrPro, "", "", "", "", objPro.getNroDNI(), "", "","C").size() > 0){
+						if (findProspecto("", "", "", "", objPro.getNroDNI(), "", "","C").size() > 0){
 							new ProcessException("Ya existe un Cliente registrado con el Nro.Documento[" + objPro.getNroDNI() + "] que tiene el Prospecto actual").printStackTrace();
 							return false;
 						}

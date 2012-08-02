@@ -3,13 +3,22 @@ package benedictoxvi.pe.business;
 import java.util.ArrayList;
 
 import benedictoxvi.pe.data.GrupoEstudio;
+import benedictoxvi.pe.datatest.DataBD;
 import benedictoxvi.pe.util.ProcessException;
 import benedictoxvi.pe.util.Validaciones;
+
+
 
 public class AdmGrupoEstudio {
 
 	ArrayList<GrupoEstudio> arrGrupos = new ArrayList<GrupoEstudio>();
 	Validaciones objVal = new Validaciones();
+	DataBD bd = new DataBD();
+	
+	public AdmGrupoEstudio() {
+		// TODO Auto-generated constructor stub
+		arrGrupos = bd.getDataGrupoEstudio();
+	}
 
 	public ArrayList<GrupoEstudio> getArrGrupos() {
 		return arrGrupos;

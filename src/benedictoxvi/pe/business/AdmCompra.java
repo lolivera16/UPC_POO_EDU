@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import benedictoxvi.pe.data.Compra;
+import benedictoxvi.pe.datatest.DataBD;
 import benedictoxvi.pe.util.CompraComparator;
 import benedictoxvi.pe.util.FormatException;
 import benedictoxvi.pe.util.ProcessException;
@@ -13,8 +14,15 @@ import benedictoxvi.pe.util.Validaciones;
 public class AdmCompra {
 
 	Validaciones objVal = new Validaciones();
+	ArrayList<Compra> arrCom;
+	DataBD bd = new DataBD();
 	
-	public int listaCompras(ArrayList<Compra> arrCom){
+	public AdmCompra() {
+		// TODO Auto-generated constructor stub
+		arrCom =  bd.getDataCompras();
+	}
+	
+	public int listaCompras(){
 		int i = 0;
 		i = arrCom.size();
 		if ( i == 0 ) return i;
@@ -33,7 +41,7 @@ public class AdmCompra {
 		return i;
 	}
 	
-	public boolean findCompraByNum(ArrayList<Compra> arrCom,int num){
+	public boolean findCompraByNum(int num){
 		boolean ret = false;
 		for (Compra objCom : arrCom){
 			if (objCom.getNumero() == num){
@@ -44,13 +52,13 @@ public class AdmCompra {
 		return ret;
 	}
 	
-	public boolean darAltaCompra(ArrayList<Compra> arrCom,String concepto, int numero,
+	public boolean darAltaCompra(String concepto, int numero,
 			String fecEmision, String nomEmpresa, Double subtot, Double monIGV,
 			Double monTot, String moneda, String fecVencim, String estado, String fecPagoReal,
 			String observ) {
 		// TODO Auto-generated method stub
 		
-		if (findCompraByNum(arrCom, numero)){
+		if (findCompraByNum( numero)){
 			new ProcessException("Ya existe un registro de Compra con el mismo Numero, imposible continuar.").printStackTrace();
 			return false;
 		}
@@ -120,7 +128,7 @@ public class AdmCompra {
 		return true;
 	}
 
-	public ArrayList<Compra> encontrarCompras(ArrayList<Compra> arrCom,String concepto, int numero,
+	public ArrayList<Compra> encontrarCompras(String concepto, int numero,
 			String fec_emision, String nom_empresa, String fec_venc, String fec_pago,
 			String estado) {
 		ArrayList<Compra> filCom = new ArrayList<Compra>();

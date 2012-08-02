@@ -15,13 +15,6 @@ public class AdmProspectoTest {
 	ArrayList<Prospecto> arrPro = new ArrayList<Prospecto>();
 	AdmProspecto admPro = new AdmProspecto();
 	
-	@Before
-	public void bcLoadProspectosTXT(){
-		
-		//1000	01/01/2012	Olivera	Reyes	Luis	LOlivera@gmail.com	32432432	12124324	3324324	P
-		Loader objLoa = new Loader();
-		
-	}
 	
 	@Test
 	public void findEncontrarProspectoTest(){
@@ -34,7 +27,7 @@ public class AdmProspectoTest {
 				   tel_cel = "",
 				   fecha = "";
 			ArrayList<Prospecto> filtroPro = 
-					admPro.findProspecto(arrPro,nombs,apepat,apemat,mail,dni,tel_cel,fecha,"");
+					admPro.findProspecto(nombs,apepat,apemat,mail,dni,tel_cel,fecha,"");
 			Assert.assertTrue(filtroPro.size()>=0);
 	}
 	
@@ -49,30 +42,29 @@ public class AdmProspectoTest {
 				   tel_cel = "",
 				   fecha = "";
 			ArrayList<Prospecto> filtroPro = 
-					admPro.findProspecto(arrPro,nombs,apepat,apemat,mail,dni,tel_cel,fecha,"");
+					admPro.findProspecto(nombs,apepat,apemat,mail,dni,tel_cel,fecha,"");
 			Assert.assertTrue(filtroPro.size()==0);
 	}
 	
 	
 	@Test 
 	public void darAltaProspecto(){
-		admPro.listaProspectos(arrPro);
-		Assert.assertTrue(admPro.deProspectoToCliente(arrPro, 1001));
-		admPro.listaProspectos(arrPro);
+		admPro.listaProspectos();
+		Assert.assertTrue(admPro.deProspectoToCliente( 1001));
+		admPro.listaProspectos();
 	}
 	
 	@Test 
 	public void darAltaProspectoAClienteExistente(){
-		admPro.listaProspectos(arrPro);
-		Assert.assertFalse(admPro.deProspectoToCliente(arrPro, 1005));
-		admPro.listaProspectos(arrPro);
+		admPro.listaProspectos();
+		Assert.assertFalse(admPro.deProspectoToCliente(1005));
+		admPro.listaProspectos();
 	}
 	
 	@Test
 	public void modificarProspecto(){
-		admPro.listaProspectos(arrPro);
+		admPro.listaProspectos();
 		Assert.assertTrue(admPro.modifcarProspecto(
-				  arrPro,	// Array prospectos en memoria
 				  1000, //  Nro Prospecto
 				  null, // Fecha registro
 				  "Enrique Luis", // Nombres
@@ -84,13 +76,12 @@ public class AdmProspectoTest {
 				  null, // Celular
 				  null // Estado
 				  ));
-		admPro.listaProspectos(arrPro);
+		admPro.listaProspectos();
 	}
 			
 	@Test
 	public void registrarProspectoTest(){
 			Assert.assertTrue(admPro.registrarProspecto(
-									  arrPro,	// Array prospectos en memoria
 									  1, //  Nro Prospecto
 									  "01/01/2013", // Fecha registro
 									  "Luis Enrique", // Nombres
@@ -110,14 +101,13 @@ public class AdmProspectoTest {
 		int num_pro = 1001;
 		System.out.println("+----------+");
 		System.out.println("\nCtd.prospectos antes de eliminar : "+arrPro.size());
-		Assert.assertTrue(admPro.eliminarProspecto(arrPro,num_pro));
+		Assert.assertTrue(admPro.eliminarProspecto(num_pro));
 		System.out.println("Ctd.prospectos luego de eliminar : "+arrPro.size());
 	}
 	
 
 	public static void main(String[] args){
-		AdmProspectoTest testAdm = new AdmProspectoTest();
-		testAdm.bcLoadProspectosTXT();
+
 		
 		//System.out.println(("hola").contains("s"));
 		

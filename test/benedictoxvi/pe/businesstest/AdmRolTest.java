@@ -112,7 +112,7 @@ public class AdmRolTest {
        aRoles.add(logistica);
        
        AdmRoles businessRoles = new AdmRoles();
-       assertEquals(true, businessRoles.buscaRol("Admin", aRoles));
+       assertEquals(true, businessRoles.buscaRol("ADM"));
    }
    
    @Test
@@ -134,9 +134,9 @@ public class AdmRolTest {
        
        AdmRoles businessRoles = new AdmRoles();
        /*Elimina el Rol*/
-       businessRoles.eliminaRol("Logistics", aRoles);
+       businessRoles.eliminaRol("LOGISTIC");
        /*Busca el Rol Eliminado*/
-       assertFalse(businessRoles.buscaRol("Logistics", aRoles));
+       assertFalse(businessRoles.buscaRol("LOGISTIC"));
        
    }
 

@@ -17,7 +17,7 @@ public class AccesosUser {
 	
 	public AccesosUser() {
 		// TODO Auto-generated constructor stub
-
+		arrUsr = myBD.getDataUsuarios();
 	}
 	
 	public Modulo requestAcceso(String nom_user, String nom_modulo) {
@@ -57,6 +57,37 @@ public class AccesosUser {
 		//System.out.println(mod_usr.getAcceso());
 		return mod_usr;
 		
+	}
+	
+	public Usuario getUserByName(String nom_usr){
+		Usuario usr_end= null;
+		for(Usuario usr : arrUsr){
+			if (usr.getUsuario().equals(nom_usr)){
+				usr_end = usr;
+				break;
+			}
+		}
+		if (usr_end==null){
+			new ProcessException("El Usuario '"+nom_usr+"' no est[a registrado.").printStackTrace();
+		}
+		return usr_end;
+	}
+
+	public ArrayList<Rol> rolesByUser(String nom_user) {
+		// TODO Auto-generated method stub
+		//ArrayList<Rol> lisRoles = new ArrayList<Rol>();
+		Usuario usr = getUserByName(nom_user);
+		if (usr==null){
+			return null;
+		}
+		return usr.getRoles();
+		//return lisRoles;
+	}
+
+
+	public ArrayList<Modulo> modulosByRol(String nom_rol) {
+		// TODO Auto-generated method stub
+		return new AdmRoles().findRol(nom_rol).getModulo();
 	}
 
 }
