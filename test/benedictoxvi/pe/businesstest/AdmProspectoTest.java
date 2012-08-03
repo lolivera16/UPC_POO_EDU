@@ -15,10 +15,9 @@ public class AdmProspectoTest {
 	ArrayList<Prospecto> arrPro = new ArrayList<Prospecto>();
 	AdmProspecto admPro = new AdmProspecto();
 	
-	
+
 	@Test
 	public void findEncontrarProspectoTest(){
-		System.out.println("+----------+");
 		String nombs = "u",
 				   apepat = "",
 				   apemat = "",
@@ -33,7 +32,6 @@ public class AdmProspectoTest {
 	
 	@Test
 	public void findSinEncontrarProspectoTest(){
-		System.out.println("+----------+");
 		String nombs = "Marcos",
 				   apepat = "",
 				   apemat = "",
@@ -48,22 +46,23 @@ public class AdmProspectoTest {
 	
 	
 	@Test 
-	public void darAltaProspecto(){
-		admPro.listaProspectos();
+	public void darAltaProspecto(){		
+		Assert.assertEquals(" ",admPro.getProspectoByNum(1001).getEstado());
 		Assert.assertTrue(admPro.deProspectoToCliente( 1001));
-		admPro.listaProspectos();
+		Assert.assertEquals("C",admPro.getProspectoByNum(1001).getEstado());
 	}
 	
 	@Test 
 	public void darAltaProspectoAClienteExistente(){
-		admPro.listaProspectos();
-		Assert.assertFalse(admPro.deProspectoToCliente(1005));
-		admPro.listaProspectos();
+		//System.out.println(admPro.getProspectoByNum(1005).getEstado());
+		Assert.assertEquals("C",admPro.getProspectoByNum(1005).getEstado());
+		Assert.assertFalse(admPro.deProspectoToCliente(1005));		
 	}
 	
 	@Test
 	public void modificarProspecto(){
-		admPro.listaProspectos();
+		//admPro.listaProspectos();		
+		Assert.assertNotSame("Enrique Luis", admPro.getProspectoByNum(1000).getNombes());
 		Assert.assertTrue(admPro.modifcarProspecto(
 				  1000, //  Nro Prospecto
 				  null, // Fecha registro
@@ -76,11 +75,13 @@ public class AdmProspectoTest {
 				  null, // Celular
 				  null // Estado
 				  ));
-		admPro.listaProspectos();
+		Assert.assertEquals("Enrique Luis", admPro.getProspectoByNum(1000).getNombes());
+		//admPro.listaProspectos();
 	}
 			
 	@Test
 	public void registrarProspectoTest(){
+			Assert.assertNull(admPro.getProspectoByNum(1));
 			Assert.assertTrue(admPro.registrarProspecto(
 									  1, //  Nro Prospecto
 									  "01/01/2013", // Fecha registro
@@ -93,25 +94,18 @@ public class AdmProspectoTest {
 									  "983422323", // Celular
 									  "" // Estado
 									  ));
+			Assert.assertNotNull(admPro.getProspectoByNum(1));
 	}
 	
 	
 	@Test
 	public void eliminarProspectoTest(){
 		int num_pro = 1001;
-		System.out.println("+----------+");
-		System.out.println("\nCtd.prospectos antes de eliminar : "+arrPro.size());
+		Assert.assertNotNull(admPro.getProspectoByNum(num_pro));
 		Assert.assertTrue(admPro.eliminarProspecto(num_pro));
-		System.out.println("Ctd.prospectos luego de eliminar : "+arrPro.size());
+		Assert.assertNull(admPro.getProspectoByNum(num_pro));
+
 	}
 	
-
-	public static void main(String[] args){
-
-		
-		//System.out.println(("hola").contains("s"));
-		
-		
-	}
 	
 }

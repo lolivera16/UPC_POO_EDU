@@ -3,7 +3,7 @@
 1002	03/01/2012	Fernandez	Hidalgo	Jose	JFernandez@gmail.com	32432034	324234324	2567567	 
 1003	04/01/2012	Ramirez	Cabrera	Maria	MRamirez@gmail.com	32431835		7567657	 
 1004	05/01/2012	Jimenez	Stuart	Karol	KJimenez@gmail.com	32431636		5567567	 
-1005	06/01/2012	Rosas	Benancio	Max	MRosas@gmail.com	12345678		6765443	 
+1005	06/01/2012	Rosas	Benancio	Max	MRosas@gmail.com	12345678		6765443	C	 
 1006	07/01/2012	Peres	Flores	Jean	JPeres@gmail.com	32431238		3845453	 
 1007	08/01/2012	Huarcaya	Gonzalez	Arturo	AHuarcaya@gmail.com	32431039		3535535	 
 1008	09/01/2012	Lopez	Inocencio	Carlos	CLopez@gmail.com	32430840		4543345	 

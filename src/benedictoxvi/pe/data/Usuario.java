@@ -13,7 +13,7 @@ public class Usuario {
     private String correo;
     private String f_ingreso;
     private String cargo;
-    private Rol rol_actual;
+    //private Rol rol_actual;
 	
     // 
     private ArrayList<Rol> roles =  new ArrayList<>();
@@ -40,7 +40,7 @@ public class Usuario {
 		this.correo = correo;
 		this.f_ingreso = f_ingreso;
 		this.cargo = cargo;
-		this.rol_actual = rol_actual;
+		
 	}
 
 
@@ -138,14 +138,5 @@ public class Usuario {
 		this.cargo = cargo;
 	}
 
-
-	public Rol getRol_actual() {
-		return rol_actual;
-	}
-
-
-	public void setRol_actual(Rol rol_actual) {
-		this.rol_actual = rol_actual;
-	}
     
 }

@@ -14,6 +14,14 @@ public class AdmProspecto {
 	ArrayList<Prospecto> arrPro = new ArrayList<Prospecto>();
 	DataBD bd = new DataBD();
 
+	public ArrayList<Prospecto> getArrPro() {
+		return arrPro;
+	}
+
+	public void setArrPro(ArrayList<Prospecto> arrPro) {
+		this.arrPro = arrPro;
+	}
+
 	public AdmProspecto() {
 		// TODO Auto-generated constructor stub
 		arrPro = bd.getDataProspecto();
@@ -110,6 +118,16 @@ public class AdmProspecto {
 		return true;
 	}
 	
+	public Prospecto getProspectoByNum(int num_pro){
+		//Prospecto obj = null;
+		for(Prospecto xpro : arrPro){
+			if (xpro.getNumProspecto() == num_pro){
+				return xpro;
+			}
+		}
+		new ProcessException("El Nro de Prospecto '"+num_pro+"' no existe.").printStackTrace();
+		return null;
+	}
 	
 	
 	public boolean deProspectoToCliente(int num_pro){
@@ -192,6 +210,10 @@ public class AdmProspecto {
 							new ProcessException("Ya existe un Cliente registrado con el Nro.Documento[" + objPro.getNroDNI() + "] que tiene el Prospecto actual").printStackTrace();
 							return false;
 						}
+					}
+					else if (estado.equalsIgnoreCase("C") && objPro.getEstado().equalsIgnoreCase("C")){
+						new ProcessException("El prospecto '"+num_pro+"' ya ha sido dado de alta.").printStackTrace();
+						return false;
 					}
 					objPro.setEstado(estado); cambio = true;
 				}
