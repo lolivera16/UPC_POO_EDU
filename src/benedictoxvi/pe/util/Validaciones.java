@@ -5,8 +5,25 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import sun.awt.AWTCharset.Decoder;
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
+
 public class Validaciones {
 
+	public void printMsg(String msg,String prev){
+		StackTraceElement[] trace = (StackTraceElement[])Thread.currentThread().getStackTrace();
+		String method1 = trace[2].getMethodName();
+		String method2 = trace[3].getMethodName();
+		System.out.println("\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+		System.out.println(prev+" "+method2 + "["+ method1+"]" +" : " + msg);
+		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+	}
+	
+	public void printMsg(String msg){
+		printMsg(msg, "");
+	}
+		
 	public boolean isSet(String cad){
 		boolean ret = true ;
 		if ( cad == null ) {
@@ -18,6 +35,15 @@ public class Validaciones {
 			ret = true ;
 		
 		return ret;
+	}
+	
+	public boolean isValidKey(String key){
+		if ( !isSet(key))
+		return false;
+		if (key.trim().length()<8){
+			return false;
+		}
+		return true;
 	}
 	
 	public boolean isSet(String[] a_objs){
@@ -100,12 +126,13 @@ public class Validaciones {
     }
     
      public static void main(String[] args) {
-    	 Validaciones objVal = new Validaciones();
-    	 String var = ("23427343");
-    	 for(char a : var.toCharArray()){
-    		 System.out.println(Character.isDigit(a));
-    	 }
-    	 System.out.println("\n"+objVal.isDigits(var));
+//    	 Validaciones objVal = new Validaciones();
+//    	 String var = ("23427343");
+//    	 for(char a : var.toCharArray()){
+//    		 System.out.println(Character.isDigit(a));
+//    	 }
+//    	 System.out.println("\n"+objVal.isDigits(var));
+
 	}
 	
      public int dateToInt(String fecha){
