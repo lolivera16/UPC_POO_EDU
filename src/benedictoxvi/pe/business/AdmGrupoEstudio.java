@@ -2,6 +2,8 @@ package benedictoxvi.pe.business;
 
 import java.util.ArrayList;
 
+import benedictoxvi.pe.businesstest.AdmClienteTest;
+import benedictoxvi.pe.data.Cliente;
 import benedictoxvi.pe.data.GrupoEstudio;
 import benedictoxvi.pe.datatest.DataBD;
 import benedictoxvi.pe.util.ProcessException;
@@ -12,6 +14,7 @@ import benedictoxvi.pe.util.Validaciones;
 public class AdmGrupoEstudio {
 
 	ArrayList<GrupoEstudio> arrGrupos = new ArrayList<GrupoEstudio>();
+	AdmCliente admCli = new AdmCliente();
 	Validaciones objVal = new Validaciones();
 	DataBD bd = new DataBD();
 	
@@ -118,6 +121,41 @@ public class AdmGrupoEstudio {
 		}
 		//System.out.println("Size : " + filGru.size());
 		return filGru;
+	}
+	
+	
+	public GrupoEstudio getGrupoById(String cod_grupo) {
+		// TODO Auto-generated method stub
+		for(GrupoEstudio objGru : getArrGrupos()){
+			//System.out.println(objGru.getCodGrupo());
+			if (objGru.getCodGrupo().equals(cod_grupo)){
+					return objGru;
+			}
+		}				
+		new ProcessException("El Codigo de Grupo '"+cod_grupo+"' no esta registrado.").printStackTrace();
+		return null;
+	}
+
+	public boolean addAlumnoGrupoEstudio(String codGrupo, String codCliente) {
+		// TODO Auto-generated method stub
+		GrupoEstudio add_grupo = getGrupoById(codGrupo);		
+		if (add_grupo==null){
+			return false;
+		}
+		if (add_grupo.getAforo() == add_grupo.getNumAlumnos()){
+			new ProcessException("El Grupo [" + codGrupo + "]["+add_grupo.getNomGrupo()+ "] ya no tiene vacantes disponibles.").printStackTrace();
+			return false;
+		}
+		if (add_grupo.existsCliente(codCliente)){
+			new ProcessException("El Codigo de Cliente '"+codCliente+"' ya esta inscrito en el Grupo de Estudios ["+codGrupo+"] "+add_grupo.getNomGrupo()).printStackTrace();
+			return false;
+		}
+		Cliente add_cli = admCli.getClienteByCod(codCliente);
+		if (add_cli!=null){
+			add_grupo.getInscritos().add(add_cli);	
+			return true;
+		}
+		return false;
 	}
 	
 }

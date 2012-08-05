@@ -23,7 +23,7 @@ public class AdmCompraTest {
 	
 	
 	@Test
-	public void cuandoFecEmisionMayorFecPago(){
+	public void cuandoFecEmisionMayorFecPagoTest(){
 		
 		Assert.assertFalse(admCom.darAltaCompra (
 				 "Suministro", // Concepto
@@ -42,7 +42,7 @@ public class AdmCompraTest {
 	}
 	
 	@Test
-	public void darAltaCompra(){
+	public void darAltaCompraTest(){
 		
 		Assert.assertTrue(admCom.darAltaCompra( 
 				 "Suministro", // Concepto *
@@ -62,7 +62,7 @@ public class AdmCompraTest {
 	
 	
 	@Test
-	public void cuandoRegistramosSinLosValoresObligatorios(){
+	public void cuandoRegistramosSinLosValoresObligatoriosTest(){
 		// valores obligatorios 
 		// Concepto, fec.Emision, fecha.vencimiento, Subtotal,Igv,Total,Moneda
 		Assert.assertFalse(admCom.darAltaCompra(
@@ -82,7 +82,7 @@ public class AdmCompraTest {
 	}
 	
 	@Test
-	public void cuandoRegistroCompraMismoNumero(){
+	public void cuandoRegistroCompraMismoNumeroTest(){
 		
 		Assert.assertTrue(admCom.darAltaCompra( 
 				 "Suministro", // Concepto *
@@ -99,7 +99,7 @@ public class AdmCompraTest {
 				 "Sin Observaciones" // Observaciones
 				));
 		
-			admCom.listaCompras();
+			//admCom.listaCompras();
 			
 		Assert.assertFalse(admCom.darAltaCompra(
 				 "Suministro 2", // Concepto *
@@ -118,7 +118,7 @@ public class AdmCompraTest {
 	}
 	
 	@Test
-	public void buscarEncontrarCompras(){
+	public void buscarEncontrarComprasTest(){
 		Assert.assertTrue(admCom.encontrarCompras(
 											      "Compra", //Concepto
 												  0, // Num.Compra
@@ -131,7 +131,7 @@ public class AdmCompraTest {
 	}
 	
 	@Test
-	public void buscarSinEncontrarCompras(){
+	public void buscarSinEncontrarComprasTest(){
 		Assert.assertTrue(admCom.encontrarCompras(
 											      "Accesorios", //Concepto
 												  0, // Num.Compra
@@ -142,5 +142,36 @@ public class AdmCompraTest {
 												  "" // Estado 
 				).size() == 0);
 	}
+	
+	@Test
+	public void anularCompraTest(){
+		Compra compra = admCom.getCompraByNum(50001);
+		Assert.assertEquals("NUEVA", compra.getEstado());
+		Assert.assertTrue(admCom.anularCompra(50001));
+		Assert.assertEquals("ANULADA", compra.getEstado());
+	}
+	
+	@Test
+	public void pagarCompraTest(){ // realizar Pago
+		Compra compra = admCom.getCompraByNum(50001);
+		Assert.assertEquals("NUEVA", compra.getEstado());
+		Assert.assertTrue(admCom.pagarCompra(compra.getNumero()));
+		Assert.assertEquals("CANCELADA", compra.getEstado());
+	}
+	
+	@Test
+	public void anularCompraPagadaTest(){
+		Compra compra = admCom.getCompraByNum(50005);
+		Assert.assertEquals("CANCELADA", compra.getEstado());
+		Assert.assertFalse(admCom.anularCompra(compra.getNumero()));		
+	}
+	
+	@Test
+	public void pagarCompraAnuladaTest(){
+		Compra compra = admCom.getCompraByNum(50014);
+		Assert.assertEquals("ANULADA", compra.getEstado());
+		Assert.assertFalse(admCom.pagarCompra(compra.getNumero()));		
+	}
+		
 }
 

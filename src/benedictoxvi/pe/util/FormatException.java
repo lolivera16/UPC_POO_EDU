@@ -36,9 +36,10 @@ public class FormatException extends Exception{
 	 
 	@Override
 	public void printStackTrace() {
-		System.out.println("");
-		super.printStackTrace();
-		System.out.println("");
+		String method1 = ((StackTraceElement)this.getStackTrace()[0]).getMethodName();
+		String method2 = ((StackTraceElement)this.getStackTrace()[1]).getMethodName();
+		//super.printStackTrace();
+		System.err.println("\n"+method2 + "["+ method1+"]" +" : " + this.getMessage());
 	}
 
 	

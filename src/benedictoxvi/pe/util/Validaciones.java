@@ -13,11 +13,11 @@ public class Validaciones {
 
 	public void printMsg(String msg,String prev){
 		StackTraceElement[] trace = (StackTraceElement[])Thread.currentThread().getStackTrace();
-		String method1 = trace[2].getMethodName();
+		String method1 = trace[4].getMethodName();
 		String method2 = trace[3].getMethodName();
-		System.out.println("\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-		System.out.println(prev+" "+method2 + "["+ method1+"]" +" : " + msg);
-		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+		//System.out.println("\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+		System.out.println("\n"+prev+method2 + "["+ method1+"]" +" : " + msg);
+		//System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 	}
 	
 	public void printMsg(String msg){

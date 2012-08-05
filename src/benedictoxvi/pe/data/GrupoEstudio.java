@@ -4,18 +4,25 @@ import java.util.ArrayList;
 
 public class GrupoEstudio {
 
+	String CodGrupo;
 	String NomGrupo;
 	String Descripcion;
-	public String getDescripcion() {
-		return Descripcion;
-	}
-	public void setDescripcion(String descripcion) {
-		Descripcion = descripcion;
-	}
 	String NomAcademia;
 	String NomCurso;
 	String FecInicio;
 	String FecFin;
+	public String getCodGrupo() {
+		return CodGrupo;
+	}
+	
+	public int getNumAlumnos(){
+		return getInscritos().size();
+	}
+
+	public void setCodGrupo(String codGrupo) {
+		CodGrupo = codGrupo;
+	}
+
 	String Estado;
 	String[] Instructor;
 	
@@ -24,6 +31,36 @@ public class GrupoEstudio {
 	int Aula;
 	Double CLatitud;
 	Double CAltitud;
+	
+	int Vacantes;
+	int Aforo;
+	
+	ArrayList<Cliente> Inscritos = new ArrayList<Cliente>();
+
+	public boolean existsCliente(String cod_cliente){
+		for(Cliente cli : getInscritos()){
+			if (cli.getCodCliente().equals(cod_cliente)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public int getVacantes() {
+		return Vacantes;
+	}
+
+	public void setVacantes(int vacantes) {
+		Vacantes = vacantes;
+	}
+
+	public int getAforo() {
+		return Aforo;
+	}
+
+	public void setAforo(int aforo) {
+		Aforo = aforo;
+	}
 
 	public String getInstructorStr(){
 		String list ="";
@@ -108,5 +145,18 @@ public class GrupoEstudio {
 		Estado = estado;
 	}
 	
-	
+	public String getDescripcion() {
+		return Descripcion;
+	}
+	public void setDescripcion(String descripcion) {
+		Descripcion = descripcion;
+	}
+
+	public ArrayList<Cliente> getInscritos() {
+		return Inscritos;
+	}
+
+	public void setInscritos(ArrayList<Cliente> inscritos) {
+		Inscritos = inscritos;
+	}
 }

@@ -58,7 +58,7 @@ public class AdmProspecto {
 		 }
 		 if (filtro.size() == 0) {
 			 // No existen registros
-			 System.err.println("\nNo se encontraron registros.");
+			 new ProcessException("No se encontraron registros.").printStackTrace();
 		 }
 		 else {
 			 System.out.println("Se encontraron '"+filtro.size()+"' conincidencias.");

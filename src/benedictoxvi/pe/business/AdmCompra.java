@@ -26,8 +26,8 @@ public class AdmCompra {
 		int i = 0;
 		i = arrCom.size();
 		if ( i == 0 ) return i;
-		System.out.println("-*----------------------*");
 		i = 0;
+		objVal.printMsg("Lista de Compras");
 		for(Compra objCom:arrCom){
 			i+=1;
 			//Compra 1	50001	01/11/2012	Empresa 1	3841,83	691,53	4533,36	USD	01/12/2012	Nuevo	19/11/2012	Observaciones de Compra 1
@@ -36,20 +36,23 @@ public class AdmCompra {
 					"\t" + objCom.getMonSubtot() + "\t" + objCom.getMonIGV() + "\t" +objCom.getMonTotal() +
 					"\t" + objCom.getMoneda() + "\t" + objCom.getFecVencim() + "\t" + objCom.getEstado() +
 					"\t" + objCom.getFecPago() + "\t" + objCom.getObservacion());
-		}
-		System.out.println("-*----------------------*");
+		}		
+		System.out.println();
 		return i;
 	}
 	
-	public boolean findCompraByNum(int num){
-		boolean ret = false;
+	public Compra getCompraByNum(int num){
 		for (Compra objCom : arrCom){
 			if (objCom.getNumero() == num){
-				ret = true;
-				break;
+				return objCom;
 			}
 		}
-		return ret;
+		new ProcessException("El Registro de Compra Nro. "+num+" no existe.").printStackTrace();
+		return null;
+	}
+	
+	public boolean findCompraByNum(int num){
+		return ((getCompraByNum(num)==null)?false:true);		
 	}
 	
 	public boolean darAltaCompra(String concepto, int numero,
@@ -153,15 +156,54 @@ public class AdmCompra {
 			}
 		}		
 		if (filCom.size() == 0) {
-			System.err.println("No se encontraron coincidencias con los Filtros");
+			new ProcessException("No se encontraron coincidencias con los Filtros").printStackTrace();
 		}
 		else {
 			// Ordenar 
 			Collections.sort(filCom,new CompraComparator());
 			// 
-			System.err.println("Se encontraron '" + filCom.size() + "' coincidencias con los Filtros");
+			objVal.printMsg("Se encontraron '" + filCom.size() + "' coincidencias con los Filtros");
 		}
 		return filCom;
+	}
+
+	public boolean pagarCompra(int num_com){
+		Compra objcom = getCompraByNum(num_com);
+		if (objcom!=null){
+			if (objcom.isCancelada()){
+				new ProcessException("El Registro de Compras Nro. "+num_com+" ya fue pagado, no se puede anular.").printStackTrace();
+				return false;
+			}
+			else if (objcom.isAnulada()){
+				new ProcessException("El Registro de Compras Nro. "+num_com+" ha sido anulado, no es posible realizar el pago.").printStackTrace();
+				return false;
+			}
+			objcom.pagar();
+		}
+		else{
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean anularCompra(int num_com) {
+		// TODO Auto-generated method stub
+		Compra objcom = getCompraByNum(num_com);
+		if (objcom!=null){
+			if (objcom.isCancelada()){
+				new ProcessException("El Registro de Compras Nro. "+num_com+" ya fue pagado, no se puede anular.").printStackTrace();
+				return false;
+			}
+			else if (objcom.isAnulada()){
+				new ProcessException("El Registro de Compras Nro. "+num_com+" ya fue anulado.").printStackTrace();
+				return false;
+			}
+			objcom.anular();
+		}
+		else{
+			return false;
+		}
+		return true;
 	}
 
 

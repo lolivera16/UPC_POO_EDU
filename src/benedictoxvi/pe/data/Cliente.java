@@ -11,7 +11,15 @@ package benedictoxvi.pe.data;
 | Clase cliente donde estan todos los atributos degun la historia de usuario
 */
 public class Cliente {
+	
+	public String getCodCliente() {
+		return codCliente;
+	}
 
+	public void setCodCliente(String codCliente) {
+		this.codCliente = codCliente;
+	}
+	public String codCliente;
     public String nomCliente;
     public String apePatCliente;
     public String apeMatCliente;

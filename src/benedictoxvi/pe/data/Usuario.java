@@ -13,9 +13,26 @@ public class Usuario {
     private String correo;
     private String f_ingreso;
     private String cargo;
+    private String status;
     //private Rol rol_actual;
 	
-    // 
+    public String getStatus() {
+		return status;
+	}
+
+    public boolean isActive(){
+    	if (this.getStatus().equalsIgnoreCase("A")){
+    		return true;
+    	}
+    	return false;
+    }
+    
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
+	// 
     private ArrayList<Rol> roles =  new ArrayList<Rol>();
     
     public ArrayList<Rol> getRoles() {

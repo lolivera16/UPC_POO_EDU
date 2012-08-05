@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import benedictoxvi.pe.business.AdmGrupoEstudio;
+import benedictoxvi.pe.data.Cliente;
 import benedictoxvi.pe.data.GrupoEstudio;
 import benedictoxvi.pe.util.Loader;
 
@@ -27,12 +28,12 @@ public class AdmGrupoEstudioTest {
 														""  // Estado
 														
 					).size() > 0);
-		admGru.listarGruposEstudio();
+		//admGru.listarGruposEstudio();
 	}
 	
 	@Test
 	public void sinEncontrarGruposEstudioTest(){
-		System.out.println("Size : " + admGru.encontrarGrupoEstudio( "Otro",  // NomGrupo
+		Assert.assertEquals(0,admGru.encontrarGrupoEstudio( "Otro",  // NomGrupo
 														"", // Academia
 														"", // Curso
 														"", // Fec.Inicio
@@ -132,6 +133,43 @@ public class AdmGrupoEstudioTest {
 				));
 	}	
 	
+	@Test
+	public void addAlumnoPorClienteGrupoEstudioTest(){
+		// Se ingresa el Codigo del Cliente
+		GrupoEstudio grupo = admGru.getGrupoById("GP1001");
+		int num_alumnos = grupo.getNumAlumnos();
+		Assert.assertTrue(admGru.addAlumnoGrupoEstudio(grupo.getCodGrupo(),"C1008"));
+		Assert.assertEquals(num_alumnos + 1,grupo.getInscritos().size());
+		
+	}
 	
+	@Test
+	public void addAlumnoPorClienteExistenteGrupoEstudioTest(){
+		// Se ingresa el Codigo del Cliente		
+		GrupoEstudio grupo = admGru.getGrupoById("GP1001");
+		// Se Agrega el primer Cliente
+		Assert.assertTrue(admGru.addAlumnoGrupoEstudio(grupo.getCodGrupo(),"C1008"));
+		// Se Agrega otra vez el mismo cliente
+		Assert.assertFalse(admGru.addAlumnoGrupoEstudio(grupo.getCodGrupo(),"C1008"));		
+	}
 	
+	@Test
+	public void addAlumnoPorClienteGrupoEstudioErroneoTest(){		// 
+		Assert.assertFalse(admGru.addAlumnoGrupoEstudio("GP100X","C1008"));	
+	}
+	
+	@Test
+	public void addAlumnoPorClienteErroneoGrupoEstudioTest(){		// 
+		Assert.assertFalse(admGru.addAlumnoGrupoEstudio("GP1001","C1XXX"));	
+	}
+	
+	@Test
+	public void addAlumnoGrupoEstudiosAforoMaximo(){
+		// Se ingresa el Codigo del Cliente		
+				GrupoEstudio grupo = admGru.getGrupoById("GP1002");
+				// Verificar que la ctd actual es el aforo
+				Assert.assertEquals(grupo.getAforo(), grupo.getNumAlumnos());
+				// Se Agrega el Cliente y dara el error del aforo
+				Assert.assertFalse(admGru.addAlumnoGrupoEstudio(grupo.getCodGrupo(),"C1008"));		
+	}	
 }

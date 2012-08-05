@@ -13,15 +13,14 @@ public final class DataBD {
 	ArrayList<GrupoEstudio> dataGrupoEstudio = new ArrayList<GrupoEstudio>();
 	ArrayList<Prospecto> dataProspecto = new ArrayList<Prospecto>();
 	ArrayList<Rol> dataRoles = new ArrayList<Rol>();
+	ArrayList<Cliente> dataClientes = new ArrayList<Cliente>();
 	
 	
-	public static void main(String[] args) {
-		new DataBD();
-	}
 	
 	public DataBD() {
 		// TODO Auto-generated constructor stub
 		dataRoles = loadRoles();
+		dataClientes = getDataCliente();
 		dataCompras = loadCompras();
 		dataGrupoEstudio = loadGrupoEstudio();
 		dataUsuarios = loadUsuarios();
@@ -131,22 +130,55 @@ public final class DataBD {
 		ArrayList<String[]> lisPro = objLoa.getDataTxt(url.substring(1));
 		for(String[] row : lisPro){
 			if (row.length == 0) continue;
+			/* 
+			 * GP1001
+			 * Grupo 1	
+			 * Academia_Grupo 1	
+			 * SISE	
+			 * Algoritmica	
+			 * 01/12/2011	
+			 * 28/02/2012	
+			 * Mario;Ernesto;Juan	
+			 * http://curso_SISE_Algoritmica.edu.pe	
+			 * SM	
+			 * 231	
+			 * 947.8723298	
+			 * 126.7698794	
+			 * 1
+			*/
 			 objGru = new GrupoEstudio();
-			 objGru.setNomGrupo(row[0]);
-			 objGru.setDescripcion(row[1]);
-			 objGru.setNomAcademia(row[2]);
-			 objGru.setNomCurso(row[3]);
-			 objGru.setFecInicio(row[4]);
-			 objGru.setFecFin(row[5]);
-			 objGru.setInstructor(row[6].split(";"));
-			 objGru.setLinkSylabus(row[7]);
-			 objGru.setLocal(row[8]);
+			 objGru.setCodGrupo(row[0]);
+			 objGru.setNomGrupo(row[1]);
+			 objGru.setDescripcion(row[2]);
+			 objGru.setNomAcademia(row[3]);
+			 objGru.setNomCurso(row[4]);
+			 objGru.setFecInicio(row[5]);
+			 objGru.setFecFin(row[6]);
+			 objGru.setInstructor(row[7].split(";"));
+			 objGru.setLinkSylabus(row[8]);
+			 objGru.setLocal(row[9]);
 			 objGru.setEstado("");
-			 objGru.setAula(Integer.parseInt(row[9]));
-			 objGru.setCAltitud(Double.parseDouble(row[10]));
-			 objGru.setCLatitud(Double.parseDouble(row[11]));
+			 objGru.setAula(Integer.parseInt(row[10]));
+			 objGru.setCAltitud(Double.parseDouble(row[11]));
+			 objGru.setCLatitud(Double.parseDouble(row[12]));
+			 //System.out.println(row[13]);
+			 objGru.setAforo(Integer.parseInt(row[13]));
 			 grupos.add(objGru);
 		}
+				
+		// Grupo  GP1002
+		// Se le pone aforo al maximo de lo cargado
+		// para realizar los tests de prueba
+		int i = 0;
+		for(Cliente cli : dataClientes){
+			if (cli.getCodCliente().equals("C1008")){
+				// omite este codigo para adicionarlo en los tests
+				continue; 
+			}
+			i+=1;
+			grupos.get(1).getInscritos().add(cli);
+		}
+		grupos.get(1).setAforo(i);
 		return grupos;
 	}
 	
@@ -186,7 +218,7 @@ public final class DataBD {
 			 objPro.setNombre(row[2]);
 			 objPro.setApellidoPaterno(row[3]);
 			 objPro.setApellidoMaterno(row[4]);
-			 objPro.setF_ingreso(row[5]);
+			 objPro.setF_ingreso(row[5]);			 
 			 String roles = row[6];
 			 //System.out.println(row[0]);
 			 for(String rol:roles.split("/")){
@@ -199,9 +231,35 @@ public final class DataBD {
 			 }
 			 objPro.setCargo(row[7]);
 			 objPro.setDni(row[8]);
+			 objPro.setStatus(row[9]);
 			 usuarios.add(objPro);
 		}
 		return usuarios;
 	}
+
+	public ArrayList<Cliente> getDataCliente() {
+		// TODO Auto-generated method stub
+		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+		Cliente objPro = null;		
+		String url = objLoa.getClass().getResource("../bd/clientes.txt").getFile();			
+		ArrayList<String[]> lisPro = objLoa.getDataTxt(url);
+		for(String[] row : lisPro){
+			 objPro = new Cliente();
+			 objPro.setCodCliente(row[0]);
+			 //1008	09/01/2012	Lopez	Inocencio	Carlos	CLopez@gmail.com	32430840		4543345		C
+			 objPro.setApePatCliente(row[1]);
+			 objPro.setApeMatCliente(row[2]);
+			 objPro.setNomCliente(row[3]);
+			 objPro.setEmaCliente(row[4]);
+			 objPro.setDniCliente(row[5]);
+			 objPro.setFecConCliente(row[6]);
+			 objPro.setEstCliente(row[7]);
+			 clientes.add(objPro);
+		}
+		return clientes;
+	}
 	
+	public static void main(String[] args) {
+		new DataBD().getDataGrupoEstudio();
+	}
 }

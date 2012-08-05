@@ -6,7 +6,7 @@ public class ProcessException extends Exception{
 	 * 
 	 */
 	private static final long serialVersionUID = 7086572473114990528L;
-
+	
 	public ProcessException() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -39,11 +39,16 @@ public class ProcessException extends Exception{
 	@Override
 	public void printStackTrace() {
 		// TODO Auto-generated method stub
-		System.out.println("");
-		super.printStackTrace();
-		System.out.println("");
+		String method1 = ((StackTraceElement)this.getStackTrace()[0]).getMethodName();
+		String method2 = ((StackTraceElement)this.getStackTrace()[1]).getMethodName();
+		//super.printStackTrace();
+		System.err.println("\n"+method2 + "["+ method1+"]" +" : " + this.getMessage());
 	}
 	
+	public static void main(String[] args) {
+		//String h = "\x1B[1mBOLD\x1B[0m\t\x1B[31mRED\x1B[0m";
+		System.out.println();
+	}
 	
 	
 
