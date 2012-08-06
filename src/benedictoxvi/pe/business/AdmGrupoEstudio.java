@@ -58,13 +58,16 @@ public class AdmGrupoEstudio {
 				343.00,
 				123.00
 	 */
-	public boolean registraGrupoEstudio(String nom_grupo, String descripcion,
+	public boolean registraGrupoEstudio(String cod_grupo,String nom_grupo, String descripcion,
 			String nom_academia, String nom_curso, String fec_inicio, String fec_final,
 			String[] instructores, String link, String local, int aula, double latitud,
 			double altitud) {
 		
 		String msg_err = null;
-		if (!objVal.isSet(nom_grupo)){
+		if (!objVal.isSet(cod_grupo)){
+			msg_err = "Debe ingresar el Codigo de Grupo";
+		}
+		else if (!objVal.isSet(nom_grupo)){
 			msg_err = "Debe ingresar el Nombre del Grupo (Obligatorio)";
 		}
 		else if(!objVal.isSet(fec_inicio)){
@@ -89,6 +92,7 @@ public class AdmGrupoEstudio {
 		}		
 		// TODO Auto-generated method stub
 		GrupoEstudio objGru = new GrupoEstudio();
+		objGru.setCodGrupo(cod_grupo);
 		objGru.setNomGrupo(nom_grupo);
 		objGru.setDescripcion(descripcion);
 		objGru.setNomAcademia(nom_academia);
@@ -102,6 +106,7 @@ public class AdmGrupoEstudio {
 		objGru.setCLatitud(latitud);
 		objGru.setCAltitud(altitud);
 		arrGrupos.add(objGru);
+		objVal.messageOk("Se ha registrado el Grupo de Estudios "+cod_grupo);
 		return true;
 	}
 
@@ -152,8 +157,27 @@ public class AdmGrupoEstudio {
 		}
 		Cliente add_cli = admCli.getClienteByCod(codCliente);
 		if (add_cli!=null){
-			add_grupo.getInscritos().add(add_cli);	
+			add_grupo.getInscritos().add(add_cli);
+			objVal.messageOk("Se ha adicionado el Cliente ["+codCliente+"] al Grupo de Estudios "+codGrupo);
 			return true;
+		}
+		return false;
+	}
+
+	public boolean verificarAlumnoEnGrupo(String cod_grupo, String cod_cli) {
+		// TODO Auto-generated method stub
+		GrupoEstudio grupo = getGrupoById(cod_grupo);
+		if (grupo!=null){
+			if (!grupo.existsCliente(cod_cli)){
+				new ProcessException("El Cliente ["+cod_cli+"] no esta inscrito en el Grupo ["+cod_grupo+"].").printStackTrace();
+				return false;
+			}
+			for(Cliente objCli : grupo.getInscritos()){
+				if (objCli.getCodCliente().equals(cod_cli)){
+					objVal.messageOk("Se ha quitado el Cliente ["+cod_cli+"] del Grupo ["+cod_grupo+"].");
+					return true;
+				}
+			}
 		}
 		return false;
 	}

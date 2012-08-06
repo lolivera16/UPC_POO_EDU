@@ -28,10 +28,7 @@ public class AdmVentaTest {
 		cargarCursos();
 		cargarCliente();
 		cargarMovimientos();		
-	}
-	
-	
-	
+	}		
 
 	@Test
 	public void registrarVentaConBoleta(){

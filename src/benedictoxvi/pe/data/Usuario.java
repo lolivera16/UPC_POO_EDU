@@ -1,5 +1,6 @@
 package benedictoxvi.pe.data;
 
+import java.lang.annotation.Documented;
 import java.util.ArrayList;
 
 public class Usuario {
@@ -14,9 +15,24 @@ public class Usuario {
     private String f_ingreso;
     private String cargo;
     private String status;
+    
+    private int num_intentos;
     //private Rol rol_actual;
 	
-    public String getStatus() {
+    public int getNum_intentos() {
+		return num_intentos;
+	}
+
+    public void intentoFallido(){
+    	//@Documented Prueba    	
+    	setNum_intentos(getNum_intentos()+1);
+    }
+    
+	public void setNum_intentos(int num_intentos) {
+		this.num_intentos = num_intentos;
+	}
+
+	public String getStatus() {
 		return status;
 	}
 

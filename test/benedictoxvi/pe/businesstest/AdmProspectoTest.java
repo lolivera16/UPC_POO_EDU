@@ -47,16 +47,18 @@ public class AdmProspectoTest {
 	
 	@Test 
 	public void darAltaProspecto(){		
-		Assert.assertEquals(" ",admPro.getProspectoByNum(1001).getEstado());
-		Assert.assertTrue(admPro.deProspectoToCliente( 1001));
-		Assert.assertEquals("C",admPro.getProspectoByNum(1001).getEstado());
+		Assert.assertEquals(" ",admPro.getProspectoByNum(1003).getEstado());
+		Assert.assertTrue(admPro.deProspectoToCliente( 1003));
+		Assert.assertEquals("C",admPro.getProspectoByNum(1003).getEstado());
 	}
 	
 	@Test 
 	public void darAltaProspectoAClienteExistente(){
 		//System.out.println(admPro.getProspectoByNum(1005).getEstado());
-		Assert.assertEquals("C",admPro.getProspectoByNum(1005).getEstado());
-		Assert.assertFalse(admPro.deProspectoToCliente(1005));		
+		Assert.assertEquals(" ",admPro.getProspectoByNum(1001).getEstado());
+		Assert.assertTrue(admPro.deProspectoToCliente( 1001));		
+		Assert.assertEquals("C",admPro.getProspectoByNum(1001).getEstado());
+		Assert.assertFalse(admPro.deProspectoToCliente(1001));		
 	}
 	
 	@Test

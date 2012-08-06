@@ -3,7 +3,20 @@ package benedictoxvi.pe.data;
 public class Modulo {
 	
 	private String nombre;
+	private String Descripcion;
 	private Boolean acceso;
+	public String getDescripcion() {
+		return Descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		Descripcion = descripcion;
+	}
+	
+	public Modulo() {
+		// TODO Auto-generated constructor stub
+	}
+
 	private Boolean adicionar;
 	private Boolean editar;
 	private Boolean eliminar;

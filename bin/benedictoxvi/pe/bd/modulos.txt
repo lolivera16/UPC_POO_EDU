@@ -1,0 +1,6 @@
+CLIENTES	Area de Clientes
+COMPRAS	Area de Logistica Interna
+PROSPECTOS	Area de Recepcion
+TESTS	Area de Sistemas/Tests
+USUARIOS	Area de Seguridad
+VENTAS	Area de Ventas

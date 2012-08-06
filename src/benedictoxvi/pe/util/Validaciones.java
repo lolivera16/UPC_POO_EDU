@@ -1,13 +1,13 @@
 package benedictoxvi.pe.util;
 
 import java.text.SimpleDateFormat;
+
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import sun.awt.AWTCharset.Decoder;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
+
+
 
 public class Validaciones {
 
@@ -20,9 +20,34 @@ public class Validaciones {
 		//System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 	}
 	
+	public void messageOk(String msg){
+		StackTraceElement[] trace = (StackTraceElement[])Thread.currentThread().getStackTrace();
+		String method1 = trace[2].getMethodName();
+		String method2 = trace[3].getMethodName();
+		//System.out.println("\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+		System.out.println("\n"+method2 + "["+ method1+"]" +" : " + msg);
+	}
+	
+	public void messageWar(String msg){
+		StackTraceElement[] trace = (StackTraceElement[])Thread.currentThread().getStackTrace();
+		String method1 = trace[2].getMethodName();
+		String method2 = trace[3].getMethodName();
+		//System.out.println("\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+		System.out.println("\n"+method2 + "["+ method1+"]" +" : " + msg);
+	}
+	
 	public void printMsg(String msg){
 		printMsg(msg, "");
 	}
+	
+//	public <T> int findAll(ArrayList<T> coll, Checker<T> chk) {
+//	    LinkedList<T> l = new LinkedList<T>();
+//	    for (T obj : coll) {
+//	         if (chk.check(obj))
+//	             l.add(obj);
+//	    }
+//	    return l;
+//	}
 		
 	public boolean isSet(String cad){
 		boolean ret = true ;
@@ -126,13 +151,8 @@ public class Validaciones {
     }
     
      public static void main(String[] args) {
-//    	 Validaciones objVal = new Validaciones();
-//    	 String var = ("23427343");
-//    	 for(char a : var.toCharArray()){
-//    		 System.out.println(Character.isDigit(a));
-//    	 }
-//    	 System.out.println("\n"+objVal.isDigits(var));
-
+    	 System.out.println("hola\n");
+    	 System.out.println("\rhola");
 	}
 	
      public int dateToInt(String fecha){

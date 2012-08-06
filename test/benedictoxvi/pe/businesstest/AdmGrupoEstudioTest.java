@@ -46,6 +46,7 @@ public class AdmGrupoEstudioTest {
 	@Test
 	public void registraGrupoEstudioTest(){
 		Assert.assertTrue(admGru.registraGrupoEstudio(				
+				"GP2001",
 				"Nombre Grupo", //Nom Curso *
 				"Descripcion", // Descripcion
 				"Academia", // Academia
@@ -63,7 +64,8 @@ public class AdmGrupoEstudioTest {
 	
 	@Test
 	public void registraGrupoEstudioSinNomGrupoTest(){
-		Assert.assertFalse(admGru.registraGrupoEstudio(				
+		Assert.assertFalse(admGru.registraGrupoEstudio(	
+				"",
 				"", //Nom Curso *
 				"Descripcion", // Descripcion
 				"Academia", // Academia
@@ -81,7 +83,8 @@ public class AdmGrupoEstudioTest {
 	
 	@Test
 	public void registraGrupoEstudioSinFechasTest(){
-		Assert.assertFalse(admGru.registraGrupoEstudio(				
+		Assert.assertFalse(admGru.registraGrupoEstudio(		
+				"GP2003",
 				"Nom Grupo", //Nom Curso *
 				"Descripcion", // Descripcion
 				"Academia", // Academia
@@ -99,7 +102,8 @@ public class AdmGrupoEstudioTest {
 	
 	@Test
 	public void registraGrupoEstudioConFechaErrorTest(){
-		Assert.assertFalse(admGru.registraGrupoEstudio(				
+		Assert.assertFalse(admGru.registraGrupoEstudio(	
+				"GP2001",
 				"Nom Grupo", //Nom Curso *
 				"Descripcion", // Descripcion
 				"Academia", // Academia
@@ -117,7 +121,8 @@ public class AdmGrupoEstudioTest {
 	
 	@Test
 	public void registraGrupoEstudioConRangoFechaErrorTest(){
-		Assert.assertFalse(admGru.registraGrupoEstudio(				
+		Assert.assertFalse(admGru.registraGrupoEstudio(		
+				"GP2001",
 				"Nom Grupo", //Nom Curso *
 				"Descripcion", // Descripcion
 				"Academia", // Academia
@@ -134,7 +139,7 @@ public class AdmGrupoEstudioTest {
 	}	
 	
 	@Test
-	public void addAlumnoPorClienteGrupoEstudioTest(){
+	public void agregarAlumnoPorClienteGrupoEstudioTest(){
 		// Se ingresa el Codigo del Cliente
 		GrupoEstudio grupo = admGru.getGrupoById("GP1001");
 		int num_alumnos = grupo.getNumAlumnos();
@@ -144,7 +149,7 @@ public class AdmGrupoEstudioTest {
 	}
 	
 	@Test
-	public void addAlumnoPorClienteExistenteGrupoEstudioTest(){
+	public void agregarAlumnoPorClienteExistenteGrupoEstudioTest(){
 		// Se ingresa el Codigo del Cliente		
 		GrupoEstudio grupo = admGru.getGrupoById("GP1001");
 		// Se Agrega el primer Cliente
@@ -154,22 +159,28 @@ public class AdmGrupoEstudioTest {
 	}
 	
 	@Test
-	public void addAlumnoPorClienteGrupoEstudioErroneoTest(){		// 
+	public void agregarAlumnoPorClienteGrupoEstudioErroneoTest(){		// 
 		Assert.assertFalse(admGru.addAlumnoGrupoEstudio("GP100X","C1008"));	
 	}
 	
 	@Test
-	public void addAlumnoPorClienteErroneoGrupoEstudioTest(){		// 
+	public void agregarAlumnoPorClienteErroneoGrupoEstudioTest(){		// 
 		Assert.assertFalse(admGru.addAlumnoGrupoEstudio("GP1001","C1XXX"));	
 	}
 	
 	@Test
-	public void addAlumnoGrupoEstudiosAforoMaximo(){
+	public void agregarAlumnoGrupoEstudiosAforoMaximo(){
 		// Se ingresa el Codigo del Cliente		
-				GrupoEstudio grupo = admGru.getGrupoById("GP1002");
-				// Verificar que la ctd actual es el aforo
-				Assert.assertEquals(grupo.getAforo(), grupo.getNumAlumnos());
-				// Se Agrega el Cliente y dara el error del aforo
-				Assert.assertFalse(admGru.addAlumnoGrupoEstudio(grupo.getCodGrupo(),"C1008"));		
+		GrupoEstudio grupo = admGru.getGrupoById("GP1002");
+		// Verificar que la ctd actual es el aforo
+		Assert.assertEquals(grupo.getAforo(), grupo.getNumAlumnos());
+		// Se Agrega el Cliente y dara el error del aforo
+		Assert.assertFalse(admGru.addAlumnoGrupoEstudio(grupo.getCodGrupo(),"C1008"));		
 	}	
+	
+	@Test
+	public void quitarAlumnoGrupoEstudios(){
+		Assert.assertTrue(admGru.verificarAlumnoEnGrupo("GP1002","C1009"));
+		Assert.assertFalse(admGru.addAlumnoGrupoEstudio("GP1002","C1009"));	
+	}
 }

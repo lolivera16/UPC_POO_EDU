@@ -127,6 +127,7 @@ public class AdmCompra {
 		objCom.setMonIGV(monIGV);
 		objCom.setMonTotal(monTot);
 		objCom.setObservacion(observ);
+		objVal.messageOk("Se ha registrado el Nro.de Compra "+numero);
 		arrCom.add(objCom);
 		return true;
 	}
@@ -162,7 +163,7 @@ public class AdmCompra {
 			// Ordenar 
 			Collections.sort(filCom,new CompraComparator());
 			// 
-			objVal.printMsg("Se encontraron '" + filCom.size() + "' coincidencias con los Filtros");
+			objVal.messageOk("Se encontraron '" + filCom.size() + "' coincidencias con los Filtros");
 		}
 		return filCom;
 	}
@@ -183,6 +184,7 @@ public class AdmCompra {
 		else{
 			return false;
 		}
+		objVal.messageOk("Se ha registrado el pago para el Reg.Compra "+num_com);
 		return true;
 	}
 	
@@ -203,6 +205,7 @@ public class AdmCompra {
 		else{
 			return false;
 		}
+		objVal.messageOk("Se ha anulado el Reg.Comra Nro."+num_com);
 		return true;
 	}
 

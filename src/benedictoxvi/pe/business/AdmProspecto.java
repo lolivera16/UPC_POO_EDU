@@ -61,7 +61,7 @@ public class AdmProspecto {
 			 new ProcessException("No se encontraron registros.").printStackTrace();
 		 }
 		 else {
-			 System.out.println("Se encontraron '"+filtro.size()+"' conincidencias.");
+			 objVal.messageOk("Se encontraron '"+filtro.size()+"' conincidencias.");
 		 }
 		//return null;
 		 return filtro;
@@ -115,6 +115,7 @@ public class AdmProspecto {
 		objPro.setCelular(celular);
 		objPro.setEstado(estado);
 		arrPro.add(objPro);
+		objVal.messageOk("Se ha registrado el Prospecto Nro. "+num_pro);
 		return true;
 	}
 	
@@ -131,7 +132,7 @@ public class AdmProspecto {
 	
 	
 	public boolean deProspectoToCliente(int num_pro){
-		return modifcarProspecto(
+		boolean res = modifcarProspecto(
 				  num_pro, //  Nro Prospecto
 				  null, // Fecha registro
 				  null, // Nombres
@@ -141,12 +142,17 @@ public class AdmProspecto {
 				  null, //  Nro DNI
 				  null, // Telefono
 				  null, // Celular
-				  "C"  // Estado
-				  );
+				  "C"  // Estado - Indica convesion a Cliente
+				  )
+				  ;
+		if (res){
+			objVal.messageOk("Se ha Dado de Alta al Prospecto Nro."+num_pro);
+		}
+		return res;
 	}
 	
-	public boolean deClientetoProspecto(ArrayList<Prospecto> arrPro,int num_pro){
-		return modifcarProspecto(
+	public boolean deClientetoProspecto(int num_pro){
+		boolean res = modifcarProspecto(
 				  num_pro, //  Nro Prospecto
 				  null, // Fecha registro
 				  null, // Nombres
@@ -157,13 +163,19 @@ public class AdmProspecto {
 				  null, // Telefono
 				  null, // Celular
 				  " "  // Estado
-				  );
+				  )
+				  ;
+		if (res){
+			objVal.messageOk("Se ha Dado de baja al Prospecto Nro."+num_pro);
+		}
+		return res;
 	}
 
 	public boolean eliminarProspecto(int i) {
 		// TODO Auto-generated method stub
 		for(Prospecto objPro : arrPro){
 			if (objPro.getNumProspecto()==(i)){
+				objVal.messageOk("Se ha eliminado el Prospecto Nro."+i);
 				return arrPro.remove(objPro);
 			}
 		}
@@ -219,6 +231,9 @@ public class AdmProspecto {
 				}
 				if (cambio) {
 				arrPro.set(x, objPro);
+				if (estado==null){
+					objVal.messageOk("Se ha modificado satisfactoriamente el Prospecto Nro. "+num_pro);
+				}
 				}
 				ret = true;	
 				return ret;

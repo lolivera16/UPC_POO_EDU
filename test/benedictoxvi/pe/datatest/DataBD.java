@@ -4,6 +4,7 @@ import java.util.*;
 
 import benedictoxvi.pe.data.*;
 import benedictoxvi.pe.util.Loader;
+import benedictoxvi.pe.util.ProcessException;
 
 public final class DataBD {
 
@@ -13,20 +14,50 @@ public final class DataBD {
 	ArrayList<GrupoEstudio> dataGrupoEstudio = new ArrayList<GrupoEstudio>();
 	ArrayList<Prospecto> dataProspecto = new ArrayList<Prospecto>();
 	ArrayList<Rol> dataRoles = new ArrayList<Rol>();
+	ArrayList<Modulo> dataModulos = new ArrayList<Modulo>();
 	ArrayList<Cliente> dataClientes = new ArrayList<Cliente>();
 	
 	
-	
+	public ArrayList<Cliente> getDataClientes() {
+		return dataClientes;
+	}
+
+	public void setDataClientes(ArrayList<Cliente> dataClientes) {
+		this.dataClientes = dataClientes;
+	}
+
+	public void setDataModulos(ArrayList<Modulo> dataModulos) {
+		this.dataModulos = dataModulos;
+	}
+
 	public DataBD() {
 		// TODO Auto-generated constructor stub
-		dataRoles = loadRoles();
+		
 		dataClientes = getDataCliente();
+		dataModulos = getDataModulos();
+		dataRoles = loadRoles();
 		dataCompras = loadCompras();
 		dataGrupoEstudio = loadGrupoEstudio();
 		dataUsuarios = loadUsuarios();
 		dataProspecto = loadProspectos();
 	}
 	
+	public ArrayList<Modulo> getDataModulos() {
+		ArrayList<Modulo> mods = new ArrayList<Modulo>();
+		Modulo objPro = null;
+		String url = objLoa.getClass().getResource("../bd/modulos.txt").getFile();		//
+		ArrayList<String[]> lisPro = objLoa.getDataTxt(url);
+		//System.out.println(lisPro.size());
+		for(String[] row : lisPro){
+		//	System.out.println(row[0]);
+			 objPro = new Modulo();
+			 objPro.setNombre(row[0]);
+			 objPro.setDescripcion(row[1]);						
+			 mods.add(objPro);
+		}
+		return mods;
+	}
+
 	public ArrayList<Usuario> getDataUsuarios() {
 		return dataUsuarios;
 	}
@@ -82,6 +113,17 @@ public final class DataBD {
 			 for(String mod : row[2].split("/")){
 				// System.out.println(mod);
 				 String[] parts = mod.split(":");
+				 	 if (Collections.binarySearch(dataModulos, new Modulo(parts[0]), new Comparator<Modulo>(){
+				 		 @Override
+				 		public int compare(Modulo o1, Modulo o2) {
+				 			return o1.getNombre().compareTo(o2.getNombre());
+				 		}
+					}
+				 	 ) < 0 )
+				 	 {
+				 		new ProcessException("No ha sido posible ubicar el Modulo '" + parts[0]+"'.").printStackTrace();
+				 		return null;
+				 	 }
 					 Modulo mod_user  = new Modulo(parts[0]);
 					// System.out.println(row[0]+"\t"+parts[0]);
 					 mod_user.setAcceso((Integer.parseInt(parts[1])==0)?false:true);
@@ -260,6 +302,15 @@ public final class DataBD {
 	}
 	
 	public static void main(String[] args) {
-		new DataBD().getDataGrupoEstudio();
+		DataBD bd= new DataBD();
+//		System.out.println(Collections.binarySearch(bd.dataModulos, new Modulo("VENTAS"), new Comparator<Modulo>(){
+//	 		 @Override
+//	 		public int compare(Modulo o1, Modulo o2) {
+//	 			// TODO Auto-generated method stub
+//	 			 System.out.println(o1.getNombre() + "/"+ o2.getNombre());
+//	 			return o1.getNombre().compareTo(o2.getNombre());
+//	 		}
+//		}
+//	 	 ));
 	}
 }

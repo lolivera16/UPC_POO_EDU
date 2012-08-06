@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
+import junit.framework.Assert;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import benedictoxvi.pe.business.AdmRoles;
@@ -12,132 +15,111 @@ import benedictoxvi.pe.data.Rol;
 
 public class AdmRolTest {
 	
+	
+	AdmRoles admRol = new AdmRoles();
+	ArrayList<Modulo> arrMod = new ArrayList<Modulo>();
+	Modulo modVentas = new Modulo("VENTAS", true, true, true, true);
+	Modulo modCompras = new Modulo("COMPRAS", true, true, true, true);
+	Modulo modClientes = new Modulo("CLIENTESS", true, true, true, true);
+	Modulo modProspectos = new Modulo("PROSPECTOS", true, true, true, true);
+	
 	private Rol rolActual;
 
-	Modulo Prospecto = new Modulo("Prospecto",true,true,true,true);
-	Modulo Clientes = new Modulo("Clientes",true,true,true,true);
-	Modulo Ventas = new Modulo("Ventas",true,true,true,true);
-	Modulo Compras = new Modulo("Compras",true,true,true,true);
-	Modulo GdeEstudios = new Modulo("GdeEstudios",true,true,true,true);
-	Modulo Admin = new Modulo("Admin",true,true,true,true); 
+	@Before
+	public void cargarModulos(){
 
-    ArrayList<Modulo> Modulos = new ArrayList<Modulo>();
+		arrMod.add(new Modulo("PROSPECTOS", true, true, true, true));
+		arrMod.add(new Modulo("CLIENTESS", true, true, true, true));
+		arrMod.add(new Modulo("USUARIOS", true, true, true, true));
+	}
+	
     
-    
-    public Rol getRolActual() {
-        return rolActual;
-    }
-
     @Test
-    public void crearRol(){
-        Modulos.add(Prospecto);
-        Modulos.add(Clientes);
-        Modulos.add(Ventas);
-        Modulos.add(Compras);
-        Modulos.add(GdeEstudios);
-        Modulos.add(Admin);
-   
-        Rol administrador = new Rol("Admin","Rol de administrador",Modulos);
-   
-        assertNotNull(administrador.getNombre());
-        System.out.println("El nombre del Rol es: "+administrador.getNombre());
-     
-            for (int i=0;i<administrador.getModulo().size();i++){
-                assertNotNull(administrador.getModulo().get(i).getAcceso());
-                System.out.println("El Modulo es : "+administrador.getModulo().get(i).getNombre());
-                System.out.println("El permiso para acceder   : "+administrador.getModulo().get(i).getAcceso().toString()); 
-                System.out.println("El permiso para adicionar : "+administrador.getModulo().get(i).getAdicionar().toString());
-                System.out.println("El permiso para editar    : "+administrador.getModulo().get(i).getEditar().toString());
-                System.out.println("El permiso para eliminar  : "+administrador.getModulo().get(i).getEliminar().toString());
-            }
-        this.rolActual=administrador;
-  }
-   
-   @Test
-   public void nombreDelRolNoSeaNuloOVacio(){
-       Modulos.add(Prospecto);
-       Modulos.add(Clientes);
-       Modulos.add(Ventas);
-       Modulos.add(Compras);
-       Modulos.add(GdeEstudios);
-       Modulos.add(Admin); 
-       
-       Rol administrador = new Rol("Admin","Rol de administrador",Modulos);
-       AdmRoles businessRoles = new AdmRoles(); 
-       assertTrue(businessRoles.validaNombreRol(administrador));
-
-   }
-
-   @Test
-   public void permisosDelRolNoSeaNulo(){
-       Modulos.add(Prospecto);
-       Modulos.add(Clientes);
-       Modulos.add(Ventas);
-       Modulos.add(Compras);
-       Modulos.add(GdeEstudios);
-       Modulos.add(Admin);  
-       Rol administrador = new Rol("Admin","Rol de administrador",Modulos);
-       AdmRoles businessRoles = new AdmRoles();
-       assertTrue(businessRoles.validaEstadoRol(administrador));
-   }
-
-   @Test
-   public void validaDescripcionRolNoSeaNuloOVacio(){
-       Modulos.add(Prospecto);
-       Modulos.add(Clientes);
-       Modulos.add(Ventas);
-       Modulos.add(Compras);
-       Modulos.add(GdeEstudios);
-       Modulos.add(Admin);
-       Rol administrador = new Rol("Admin","Rol de administrador",Modulos);
-       AdmRoles businessRoles = new AdmRoles();
-       assertTrue(businessRoles.validaDescripcionRol(administrador));
-   }
-
-   @Test
-   public void verificaBusquedaRol(){
-       Modulos.add(Prospecto);
-       Modulos.add(Clientes);
-       Modulos.add(Ventas);
-       Modulos.add(Compras);
-       Modulos.add(GdeEstudios);
-       Modulos.add(Admin);
-       
-       ArrayList<Rol>aRoles = new ArrayList<Rol>();
-       
-       Rol administrador = new Rol("Admin","Rol de administrador",Modulos);
-       Rol logistica = new Rol("Logistics", "Logistica", Modulos);
-       
-       aRoles.add(administrador);
-       aRoles.add(logistica);
-       
-       AdmRoles businessRoles = new AdmRoles();
-       assertEquals(true, businessRoles.buscaRol("ADM"));
-   }
-   
-   @Test
-   public void verificaEliminaRol(){
-       Modulos.add(Prospecto);
-       Modulos.add(Clientes);
-       Modulos.add(Ventas);
-       Modulos.add(Compras);
-       Modulos.add(GdeEstudios);
-       Modulos.add(Admin);
-       
-       ArrayList<Rol>aRoles = new ArrayList<Rol>();
-       
-       Rol administrador = new Rol("Admin","Rol de administrador",Modulos);
-       Rol logistica = new Rol("Logistics", "Logistica", Modulos);
-       
-       aRoles.add(administrador);
-       aRoles.add(logistica);
-       
-       AdmRoles businessRoles = new AdmRoles();
-       /*Elimina el Rol*/
-       businessRoles.eliminaRol("LOGISTIC");
-       /*Busca el Rol Eliminado*/
-       assertFalse(businessRoles.buscaRol("LOGISTIC"));
-       
-   }
+    public void crearRolConModulosTest(){
+    	ArrayList<Modulo> mods = new ArrayList<Modulo>();
+    	mods.add(modProspectos);
+    	mods.add(modCompras);
+    	Assert.assertTrue(admRol.registrarRol(
+    			"NEW_ROL", // Identificador del ROL
+    			"Rol de Administracion", //Descripcion del Rol 
+    			 mods// Modulos contenidos en el Rol
+    			));
+    }
+    
+    @Test
+    public void crearRolConModulosErroneosTest(){
+    	ArrayList<Modulo> mods = new ArrayList<Modulo>();
+    	mods.add(modProspectos);
+    	// Agregar el Rol Inconsistente
+    	mods.add(modClientes);
+    	mods.add(modCompras);
+    	Assert.assertFalse(admRol.registrarRol(
+    			"NEW_ROL", // Identificador del ROL
+    			"Rol de Administracion", //Descripcion del Rol 
+    			 mods// Modulos contenidos en el Rol
+    			));
+    }
+    
+    @Test
+    public void crearRolConDatosVaciosErroneosTest(){
+    	ArrayList<Modulo> mods = new ArrayList<Modulo>();
+    	mods.add(modProspectos);
+    	Assert.assertFalse(admRol.registrarRol(
+    			"NEW_", // Identificador del ROL (longitud minima 6)
+    			"Rol de Administracion", //Descripcion del Rol 
+    			 mods// Modulos contenidos en el Rol
+    			));
+    }
+    
+    @Test
+    public void crearRolSinModulosTest(){
+    	ArrayList<Modulo> mods = new ArrayList<Modulo>();
+    	Assert.assertTrue(admRol.registrarRol(
+    			"NEW_ROL", // Identificador del ROL (longitud minima 6)
+    			"Rol de Administracion", //Descripcion del Rol 
+    			 mods// Modulos contenidos en el Rol
+    			));
+    }
+    
+    @Test
+    public void modificarRolTest(){
+    	ArrayList<Modulo> mods = new ArrayList<Modulo>();
+    	//Vamos a quitarle los modulos existentes al Rol
+    	Assert.assertTrue(admRol.modificarRol(
+    			"SECUR", // Identificador del ROL (longitud minima 6)
+    			"Nuevo Nombre", //Descripcion del Rol 
+    			 mods// Modulos contenidos en el Rol
+    			));
+    }
+    
+    @Test
+    public void suprimirRolTest(){
+    	int num_roles  = admRol.getRoles().size();    	
+    	Assert.assertTrue(admRol.suprimirRol(
+    			"SECUR" // Identificador del ROL (longitud minima 6)    			
+    			));
+    	// Quitando 1 por el rol que se esta eliminando
+    	num_roles = num_roles -1;
+    	Assert.assertEquals(num_roles, admRol.getRoles().size());
+    }
+    
+    @Test
+    public void suprimirRolConUsuariosTest(){
+    	int num_roles  = admRol.getRoles().size();    	
+    	Assert.assertFalse(admRol.suprimirRol(
+    			"VTAS" // Identificador del ROL (longitud minima 6)    			
+    			));    	
+    	Assert.assertEquals(num_roles, admRol.getRoles().size());
+    }
+    
+    @Test
+    public void verificarExistenciaRolTest(){
+    	Assert.assertNotNull(admRol.findModuloByIdent("VENTAS"));
+    }
+    
+    @Test
+    public void verificarInexistenciaRolTest(){
+    	Assert.assertNull(admRol.findModuloByIdent("VENTAS_MAL"));
+    }   
 
 }
