@@ -110,6 +110,12 @@ public class AdmAccesosUserTest {
 	}
 	
 	@Test
+	public void removeUsuarioInexistenteRolTest(){
+		Assert.assertFalse(objAcc.removeRolUser("USUARIO_BAD","ADM"));
+	}
+	
+	
+	@Test
 	public void checkAddRolAccessUser(){
 		// Intenta acceder al Modulo de Prospectos, PERO NO TIENE EL ROL PROSP
 		Assert.assertFalse(objAcc.requestAcceso("USUARIO02","PROSPECTOS"));

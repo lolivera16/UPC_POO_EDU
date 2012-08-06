@@ -37,6 +37,7 @@ public class AdmAccesosUser {
 					for(Modulo mod : user_rol.getModulo()){
 						//System.out.println(mod.getNombre() + "\t" + nom_modulo);
 						if (mod.getNombre().equalsIgnoreCase(nom_modulo)){
+							objVal.messageOk("Se ha encontrado el Modulo ["+nom_modulo+"] en el usuario '"+nom_user+"'");
 							return mod;
 							//System.out.println("Find");
 							//System.out.println(mod.getAcceso());							
@@ -121,6 +122,7 @@ public class AdmAccesosUser {
 			for(Rol xrol:usr.getRoles()){
 				if (xrol.getNombre().equals(nom_rol)){
 					usr.getRoles().remove(xrol);
+					objVal.messageOk("Se ha removido el Usuario '"+nom_usr+"' del rol ["+nom_rol+"].");
 					return true;
 				}
 			}

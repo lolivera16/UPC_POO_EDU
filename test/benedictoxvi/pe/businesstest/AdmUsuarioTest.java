@@ -129,6 +129,25 @@ Security sec = new Security();
     													));
     	Assert.assertNotSame("Atencion", usr.getCargo());    	
     }
+    
+    @Test
+    public void suprimirUsuarioTest(){
+    	int num_usuarios = admUsuarios.getarrUsr().size();
+    	Assert.assertEquals(num_usuarios,admUsuarios.getarrUsr().size());
+    	Assert.assertTrue(admUsuarios.quitarUsuario("USUARIO01"));
+    	// Por el usuario eliminado
+    	num_usuarios = num_usuarios - 1 ;
+    	Assert.assertEquals(num_usuarios,admUsuarios.getarrUsr().size());
+    }
+    
+    @Test
+    public void suprimirUsuarioInexistenteTest(){
+    	int num_usuarios = admUsuarios.getarrUsr().size();
+    	Assert.assertEquals(num_usuarios,admUsuarios.getarrUsr().size());
+    	Assert.assertFalse(admUsuarios.quitarUsuario("USUARIOAAAA"));
+    	// Por el usuario eliminado
+    	Assert.assertEquals(num_usuarios,admUsuarios.getarrUsr().size());
+    }
         
 
 }

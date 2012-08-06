@@ -152,6 +152,7 @@ public class AdmUsuarios {
 		new_usr.setCargo(cargo);
 		new_usr.setDni(dni);
 		arrUsr.add(new_usr);
+		objVal.messageOk("Se ha creado satisfactoriamente el usuario ["+nom_usr+"].");
 		return true;
 	}
 
@@ -165,6 +166,7 @@ public class AdmUsuarios {
 				new ProcessException("El usuario '"+nom_usr+"' tiene el acceso bloqueado.").printStackTrace();
 				return false;
 			}
+			objVal.messageOk("Se ha valida el acceso para el usuario ["+nom_usr+"]");
 			return true;
 			}
 			else{
@@ -189,6 +191,18 @@ public class AdmUsuarios {
 				new ProcessException("La Nueva Clave de Acceso y la verificacion no coinciden.").printStackTrace();
 				return false;
 			}
+			objVal.messageOk("Se ha cambiado la clave de acceso para el usuario ["+nom_usr+"].");
+			return true;
+		}
+		return false;
+	}
+	
+	
+	public boolean quitarUsuario(String nom_usr){
+		Usuario usr = getUserByName(nom_usr);
+		if (usr!=null){
+			arrUsr.remove(usr);
+			objVal.messageOk("Se ha procedido a suprimir el Usuario ["+nom_usr+"]");
 			return true;
 		}
 		return false;
@@ -252,6 +266,7 @@ public class AdmUsuarios {
 		upd_usr.setCargo(cargo);
 		}
 		upd_usr.setF_ingreso(fing);
+		objVal.messageOk("Se ha modificado los datos del Usuario ["+nom_usr+"]");
 		return true;
 	}
 
@@ -260,9 +275,10 @@ public class AdmUsuarios {
 		Usuario usr= getUserByName(nom_usr);
 		if (!(usr==null)){
 			if (usr.getStatus()=="X"){
-				System.out.println("El Usuario ya se encuentra bloqueado.");
+				objVal.messageOk("El Usuario ya se encuentra bloqueado.");
 			}
 			usr.setStatus("X");
+			objVal.messageOk("Se ha procedido a bloquear el Usuario ["+nom_usr+"]");
 			return true;
 		}
 		return false;
@@ -275,6 +291,7 @@ public class AdmUsuarios {
 				System.out.println("El Usuario no se encuentra bloqueado.");
 			}
 			usr.setStatus("A");
+			objVal.messageOk("Se ha procedido a desbloquear el Usuario ["+nom_usr+"]");
 			return true;
 		}
 		return false;
