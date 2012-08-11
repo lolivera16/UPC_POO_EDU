@@ -36,7 +36,7 @@ public class ClienteTest {
 		objCli.setApePatCliente("Guzman");
 		objCli.setApeMatCliente("Perez");
 		objCli.setDniCliente("34567543");
-		objCli.setFonCliente(7665456);
+		objCli.setFonCliente("7665456");
 		objCli.setFecConCliente("12/07/2012");
 		objCli.setEmaCliente("jguzman@hotmail.com");
 		objCli.setEstCliente("Cliente");

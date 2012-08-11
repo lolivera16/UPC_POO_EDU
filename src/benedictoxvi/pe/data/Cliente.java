@@ -25,7 +25,7 @@ public class Cliente {
     public String apeMatCliente;
     public String emaCliente;
     public String dniCliente;
-    public int fonCliente;
+    public String fonCliente;
     public String fecConCliente;
     public String estCliente;
     
@@ -71,10 +71,10 @@ public class Cliente {
 		this.emaCliente = emaCliente;
 	}
 
-	public int getFonCliente() {
+	public String getFonCliente() {
 		return fonCliente;
 	}
-	public void setFonCliente(int fonCliente) {
+	public void setFonCliente(String fonCliente) {
 		this.fonCliente = fonCliente;
 	}
 	public String getFecConCliente() {

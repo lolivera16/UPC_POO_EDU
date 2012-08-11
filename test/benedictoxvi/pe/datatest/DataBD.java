@@ -160,6 +160,10 @@ public final class DataBD {
 		return prospectos;
 	}
 	
+	public ArrayList<Prospecto> loadCuentas(){
+			return null;		
+	}
+	
 	public void loadClientes(){
 		
 	}
@@ -289,14 +293,26 @@ public final class DataBD {
 			 objPro = new Cliente();
 			 objPro.setCodCliente(row[0]);
 			 //1008	09/01/2012	Lopez	Inocencio	Carlos	CLopez@gmail.com	32430840		4543345		C
-			 objPro.setApePatCliente(row[1]);
-			 objPro.setApeMatCliente(row[2]);
-			 objPro.setNomCliente(row[3]);
-			 objPro.setEmaCliente(row[4]);
-			 objPro.setDniCliente(row[5]);
-			 objPro.setFecConCliente(row[6]);
-			 objPro.setEstCliente(row[7]);
+			 objPro.setFecConCliente(row[1]);
+			 objPro.setApePatCliente(row[2]);
+			 objPro.setApeMatCliente(row[3]);
+			 objPro.setNomCliente(row[4]);
+			 objPro.setEmaCliente(row[5]);
+			 objPro.setDniCliente(row[6]);
+			 objPro.setFonCliente(row[7]);
+			 objPro.setEstCliente(row[8]);
+//			 System.out.println(row[0]);
+//			 System.out.println(row[1]);
+//			 System.out.println(row[2]);
+//			 System.out.println(row[3]);
+//			 System.out.println(row[4]);
+//			 System.out.println(row[5]);
+//			 System.out.println(row[6]);
+//			 System.out.println(row[7]);
+//			 System.out.println(row[8]);
+			 //System.out.println(row[0]);
 			 clientes.add(objPro);
+			 //break;
 		}
 		return clientes;
 	}
