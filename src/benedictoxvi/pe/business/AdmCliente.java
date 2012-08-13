@@ -21,7 +21,8 @@ public class AdmCliente {
 	
 	public Cliente getClienteByCod(String numCli){
 		for(Cliente cli : arrCli){
-			if (cli.getCodCliente()== numCli){
+			//System.out.println(cli.getCodCliente());
+			if (cli.getCodCliente().equals(numCli)){
 				return cli;
 			}
 		}

@@ -55,8 +55,8 @@ public class ClienteTest {
 		assertEquals("Jose Luis",objCli.getNomCliente());
 		assertEquals("Guzman",objCli.getApePatCliente());
 		assertEquals("Perez",objCli.getApeMatCliente());
-		assertEquals("346578",objCli.getDniCliente());
-		assertEquals(7665456,objCli.getFonCliente());
+		assertEquals("34567543",objCli.getDniCliente());
+		assertEquals("7665456",objCli.getFonCliente());
 		assertEquals("12/07/2012",objCli.getFecConCliente());
 		assertEquals("jguzman@hotmail.com",objCli.getEmaCliente());
 		assertEquals("Cliente",objCli.getEstCliente());

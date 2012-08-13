@@ -42,7 +42,7 @@ public class ProcessException extends Exception{
 		String method1 = ((StackTraceElement)this.getStackTrace()[0]).getMethodName();
 		String method2 = ((StackTraceElement)this.getStackTrace()[1]).getMethodName();
 		//super.printStackTrace();
-		System.err.println("\n"+method2 + "["+ method1+"]" +" : " + this.getMessage());
+		System.err.println("\n  "+method2 + "["+ method1+"]" +" : " + this.getMessage());
 	}
 	
 	public static void main(String[] args) {

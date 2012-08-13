@@ -39,6 +39,7 @@ public class GrupoEstudio {
 
 	public boolean existsCliente(String cod_cliente){
 		for(Cliente cli : getInscritos()){
+			//System.out.println(cli.getCodCliente());
 			if (cli.getCodCliente().equals(cod_cliente)){
 				return true;
 			}

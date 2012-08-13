@@ -16,7 +16,7 @@ public class Validaciones {
 		String method1 = trace[4].getMethodName();
 		String method2 = trace[3].getMethodName();
 		//System.out.println("\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-		System.out.println("\n"+prev+method2 + "["+ method1+"]" +" : " + msg);
+		System.out.println("\n  "+prev+method2 + "["+ method1+"]" +" : " + msg);
 		//System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 	}
 	
@@ -25,7 +25,7 @@ public class Validaciones {
 		String method1 = trace[2].getMethodName();
 		String method2 = trace[3].getMethodName();
 		//System.out.println("\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-		System.out.println("\n"+method2 + "["+ method1+"]" +" : " + msg);
+		System.out.println("\n  "+method2 + "["+ method1+"]" +" : " + msg);
 	}
 	
 	public void messageWar(String msg){
@@ -33,11 +33,11 @@ public class Validaciones {
 		String method1 = trace[2].getMethodName();
 		String method2 = trace[3].getMethodName();
 		//System.out.println("\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-		System.out.println("\n"+method2 + "["+ method1+"]" +" : " + msg);
+		System.out.println("\n  "+method2 + "["+ method1+"]" +" : " + msg);
 	}
 	
 	public void printMsg(String msg){
-		printMsg(msg, "");
+		printMsg("  "+msg, "");
 	}
 	
 //	public <T> int findAll(ArrayList<T> coll, Checker<T> chk) {
