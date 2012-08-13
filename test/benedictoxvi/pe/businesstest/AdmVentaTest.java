@@ -3,17 +3,21 @@ package benedictoxvi.pe.businesstest;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import benedictoxvi.pe.business.AdmVenta;
+import benedictoxvi.pe.data.Cliente;
 import benedictoxvi.pe.data.Compra;
 import benedictoxvi.pe.data.Prospecto;
 import benedictoxvi.pe.data.Venta;
+import benedictoxvi.pe.datatest.DataBD;
 
 
 public class AdmVentaTest {
@@ -25,12 +29,24 @@ public class AdmVentaTest {
 	
 	@Before
 	public void cargarData(){
+		
+		/**/
+		 System.out.println("+----- Listado de Cursos-----+");
+		 
 		cargarCursos();
+		System.out.println("");
+		System.out.println("+----- Listado Clientes-----+");
 		cargarCliente();
-		cargarMovimientos();		
-	}		
+		System.out.println("");
+		System.out.println("+----- Listado Movimientos-----+");
+		cargarMovimientos();
+		System.out.println("");
+		
+	}	
+	
+		
 
-	@Test
+	//@Test
 	public void registrarVentaConBoleta(){
 		System.out.println("+----- Listado de Movimientos antes de Registrar Boleta-----+");
 		listarMovimientos();
@@ -63,6 +79,8 @@ public class AdmVentaTest {
 		 String FecPagoReal = "20/12/2012";
 		 String Observ = "Sin Observaciones";
 		 String concepto = "Pago Matricula del curso POO";
+		 
+		
 		
 		assertTrue(objAdmVenta.registrarPagoConBoleta(arrVenta,
 															nroMovimiento, 
@@ -89,7 +107,7 @@ public class AdmVentaTest {
 	}
 	
 	
-	@Test
+	//@Test
 	public void registrarVentaConFactura(){
 		System.out.println("+----- Listado de Movimientos antes de Registrar Factura-----+");
 		listarMovimientos();
@@ -148,7 +166,80 @@ public class AdmVentaTest {
 	}
 	
 	
+		//Pago la tercera cuota con boleta
+		@Test
+		public void registrarPagoBoleta(){
+			System.out.println("+--------------- Pago Boleta ---------------+");
+			 int NroMovimiento = 7;		
+			 String TipoComprobante = "1";		
+			 String NroBoleta = "BV-000130";
+			 String RUC = "";			 
+			 String Observacion = "Pago en efectivo";
+			 String UsuarioRegistro  = "eLopez";		
+			 Date FechaRegistro;
+			 
+			 String CodCliente = "C1010";
+			 String CodCuenta = "CU000001";
+			 List<Venta> arrNroCuota = new ArrayList<Venta>();
+			 Venta oVenCuota = null;
+			 oVenCuota = new Venta();
+			 oVenCuota.setNroCuota(3); 
+			 arrNroCuota.add(oVenCuota);
+			 /*
+			 oVenCuota = new Venta();
+			 oVenCuota.setNroCuota(4);
+			 arrNroCuota.add(oVenCuota);
+			 */
+			 assertTrue(objAdmVenta.registraPagoBoletaFactura(arrVenta,
+			 										NroMovimiento,
+			 										TipoComprobante,
+			 										NroBoleta,
+													RUC,
+													CodCliente,
+													CodCuenta,
+													arrNroCuota,
+													UsuarioRegistro													
+													));			 
+		}
 	
+	
+		//Pago la tercera cuota con Factura
+		@Test
+		public void registrarPagoFactura(){
+			System.out.println("+--------------- Pago Factura ---------------+");
+			 int NroMovimiento = 8;		
+			 String TipoComprobante = "2";		
+			 String NroBoleta = "FC-000001";
+			 String RUC = "11045820790";			 
+			 String Observacion = "Pago en efectivo";
+			 String UsuarioRegistro = "pmora";		
+			 Date FechaRegistro;
+			 
+			 String CodCliente = "C1015";
+			 String CodCuenta = "CU000002";
+			 List<Venta> arrNroCuota = new ArrayList<Venta>();
+			 Venta oVenCuota = null;
+			 oVenCuota = new Venta();
+			 oVenCuota.setNroCuota(1); 
+			 arrNroCuota.add(oVenCuota);
+			 oVenCuota = new Venta();
+			 oVenCuota.setNroCuota(2);
+			 arrNroCuota.add(oVenCuota);
+			 
+			 
+			 assertTrue(objAdmVenta.registraPagoBoletaFactura(arrVenta,
+			 										NroMovimiento,
+			 										TipoComprobante,
+			 										NroBoleta,
+													RUC,
+													CodCliente,
+													CodCuenta,
+													arrNroCuota,
+													UsuarioRegistro													
+													));			 
+		}
+				
+				
 	
 	
 	@Test 
@@ -224,34 +315,35 @@ public class AdmVentaTest {
 		
 	}
 	
+
+
+
 	public  void cargarCursos(){
 		
 		List<Venta> olstCurso = new ArrayList<Venta>();
-		
-		Venta objCurso01 = new Venta();
-		objCurso01.setCodCurso("C01");
-		objCurso01.setNomCuro("Estructura de Datos");
-		objCurso01.setPreCurso(300.0);
-		
-		Venta objCurso02 = new Venta();
-		objCurso02.setCodCurso("C01");
-		objCurso02.setNomCuro("Java Aplicaciones Web");
-		objCurso02.setPreCurso(500.0);
-		
-		Venta objCurso03 = new Venta();
-		objCurso03.setCodCurso("C03");
-		objCurso03.setNomCuro("Implementando Aplicaciones Web");
-		objCurso03.setPreCurso(400.0);
-		
-		olstCurso.add(objCurso01);
-		olstCurso.add(objCurso02);
-		olstCurso.add(objCurso03);
+		Venta objVenta = new Venta();
+		olstCurso = objVenta.getDataCursos();		
+		for( Venta oVenta : olstCurso ){
+			System.out.println("Codigo Curso : " + oVenta.getCodCurso() + 
+					" Nombre Curso :" + oVenta.getNomCurso() +
+					" Precio Curso :" + oVenta.getPreCurso());
+		}
 		
 	}
 	
 	public void cargarCliente(){
-		List<Venta> olstCliente = new ArrayList<Venta>();
+		DataBD objData = new DataBD();
+		List<Cliente> olstCliente = new ArrayList<Cliente>();
+		olstCliente = objData.getDataCliente();
 		
+		for (Cliente oCliente : olstCliente ){
+			System.out.println("Codigo Cliente : " + oCliente.getCodCliente() + 
+					" Nombre Cliente :" + oCliente.getNomCliente() +
+					" DNI :" + oCliente.getDniCliente());
+		
+		}
+		
+		/*
 		Venta objCliente01 = new Venta();
 		objCliente01.setCodCliente("CL00001");
 		objCliente01.setNomCliente("Ricardo");
@@ -269,11 +361,11 @@ public class AdmVentaTest {
 		
 		olstCliente.add(objCliente01);
 		olstCliente.add(objCliente02);
-		
+		*/
 	}
 	
 	
-void cargarMovimientos(){
+	void cargarMovimientos(){
 		
 		Venta objVenta;
 		

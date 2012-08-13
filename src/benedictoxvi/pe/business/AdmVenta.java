@@ -1,14 +1,19 @@
 package benedictoxvi.pe.business;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 
+import benedictoxvi.pe.data.Cliente;
 import benedictoxvi.pe.data.Venta;
+import benedictoxvi.pe.datatest.DataBD;
 import benedictoxvi.pe.util.FormatException;
+import benedictoxvi.pe.util.ProcessException;
 import benedictoxvi.pe.util.Validaciones;
 
 public class AdmVenta {
@@ -16,6 +21,8 @@ public class AdmVenta {
 	Venta objVenta = new Venta();
 	
 	Validaciones objVal = new Validaciones();
+	
+	
 	
 	public Boolean registrarPagoConBoleta(
 			List<Venta> arrVenta,
@@ -273,9 +280,210 @@ String msg_err = "";
 		return false;
 	}
 
+	public boolean registraPagoBoletaFactura(ArrayList<Venta> arrVenta,
+			int nroMovimiento, String tipoComprobante, String nroBoleta,
+			String RUC, String CodCliente, String CodCuenta, List<Venta> arrNroCuota,
+			String usuarioRegistro) {
+		
+		String Comprobante = "";		
+		String msg_err = "";
+		
+		if (!objVal.isSet(tipoComprobante))
+		{
+				msg_err = "Debe ingresar tipo de documento de venta(boleta / factura)";
+		}else if (!objVal.isSet(CodCuenta))
+		{
+			msg_err = "Debe ingresar el curso a facturar";			
+		}
+		else if (!objVal.isSet(CodCliente))
+		{
+			msg_err = "Debe ingresar el cliente a facturar";			
+		}			
+		else if(!objVal.isSet(usuarioRegistro)){
+			msg_err = "Debe existir un responsable de emisión(Usuario registro).";
+		}
+
+		if(validaciones(CodCliente, CodCuenta) != true){
+			msg_err = "Mensaje de validacion interno";		
+		}
+		
+		if(tipoComprobante.equalsIgnoreCase("1")){
+			Comprobante = "BOLETA";
+		}else{
+			Comprobante = "FACTURA";
+		}
+		
 	
+		
+		
+		if (objVal.isSet(msg_err)){
+			new FormatException(msg_err).printStackTrace();
+			return false;
+		}
+		
+		Venta objVenCronograma = new Venta();
+		List<Venta> arrCrono = new ArrayList<Venta>();
+		arrCrono = objVenCronograma.getCronogramaByCodigoCuenta(CodCuenta);
+		
+		Venta oCuenta = new Venta();
+		oCuenta = objVenCronograma.getCuentaByCodigo(CodCuenta); 
+		
+		Venta oCurso = new Venta();
+		oCurso = objVenCronograma.getCursoByCodigo(oCuenta.getCodCurso());
+		
+		Cliente objCliente = new Cliente();
+		objCliente = getClienteByCodigo(CodCliente  );
+		
+		Date FechaActual = new Date();
+		
+		System.out.println("Comprobante Venta Nro " + nroMovimiento);
+		System.out.println("Tipo Comprobante 	: " + Comprobante);
+		System.out.println("Número Comprobante 	: "+ nroBoleta);
+		System.out.println("Fecha Emisión 		: "+ fechaToString(FechaActual));		
+		System.out.println("Nombre Cliente 		: " + objCliente.getNomCliente() + " " 
+				+ objCliente.getApePatCliente() + " "  + objCliente.getApeMatCliente());
+		System.out.println("--Items ");
+		
+		
+		String fecha = "";
+		int n = 0;
+		Double MontoTotal = 0.0;
+		Double Mora = 0.0;
+		Double TotalMora = 0.0;
+		for(Venta oCuota : arrNroCuota){
+			for(Venta oCuota2: arrCrono ){
+				if (oCuota2.getNroCuota() == oCuota.getNroCuota() &&
+						oCuota2.getEstadoCuota().equals("P")){
+					Mora = 0.0;
+					
+					n = n + 1;
+					long difDias = difDiasEntre2fechas(oCuota2.getFechaVencimientoCronograma(),FechaActual);
+					if( difDias  > 0){
+						Mora = difDias * 0.01 * oCuota2.getMontoCronograma();						
+					}
+					System.out.println("--"  + n + ". Cuota " + oCuota2.getNroCuota() + " " 
+							+ oCurso.getNomCurso() + " --> " + oCuota2.getMontoCronograma() 
+							+ " \n 		Fecha Vencimiento : " + fechaToString(oCuota2.getFechaVencimientoCronograma())
+							+ " Mora : " + Mora							 
+							);
+					
+					TotalMora = TotalMora + Mora;
+					
+					MontoTotal = MontoTotal + oCuota2.getMontoCronograma();
+				}
+			}
+		}
+		
+		System.out.println("--");
+		Double Igv = 0.0;
+		if(tipoComprobante.equalsIgnoreCase("2")){
+			Igv = (0.18) * MontoTotal ;
+			System.out.println("Sub Total		: " + MontoTotal);
+			System.out.println("IGV			: " + Igv);
+		}
+		System.out.println("Total			: " + ( Igv + MontoTotal + TotalMora));
+		System.out.println("");
+		return true;
+	}
+
 	
+	public Cliente getClienteByCodigo(String CodCliente){
+		//Cliente obj = null;
+		DataBD bd = new DataBD();
+		List<Cliente> arrCli = new ArrayList<Cliente>();
+		arrCli = bd.getDataCliente();
+		
+		for(Cliente cli : arrCli){
+			if (cli.getCodCliente().equals(CodCliente)){
+				return cli;
+			}
+		}
+		new ProcessException("El Código de Cliente '"+ CodCliente +"' no existe.").printStackTrace();
+		return null;
+	}
 	
+	public Boolean validaciones(String CodCliente, String CodCuenta){
+		Boolean res = true;
+		Cliente objCliente = new Cliente();
+		objCliente = getClienteByCodigo(CodCliente);
+		if(objCliente == null  ){
+			res = false;
+		}
+		
+		Venta oVenCuenta = new Venta();
+		oVenCuenta = oVenCuenta.getCuentaByCodigo(CodCuenta);
+		if(oVenCuenta == null  ){
+			res = false;
+		}
+		
+		Venta oVenCronograma = new Venta();
+		List<Venta> arrCrono = new ArrayList<Venta>();
+		arrCrono = oVenCronograma.getCronogramaByCodigoCuenta(CodCuenta);
+		if(arrCrono == null  ){			
+			res = false;
+		}
+		return res;
+	}
+	
+	String fechaToString(Date pFecha){
+		String Fecha = "";
+		SimpleDateFormat Forma = new SimpleDateFormat("dd/MM/yyyy");
+		Fecha = Forma.format(pFecha);
+		return Fecha;
+	}
+	
+	 public long difDiasEntre2fechas(Date pFecha1, Date pFecha2){
+		 
+		// System.out.println("FEcha1		: " + fechaToString(pFecha1));
+		 String Fecha1 =  fechaToString(pFecha1);
+		 String Fecha2 =  fechaToString(pFecha2);
+		 
+		 String[] parts ;
+    	 int val = 0;
+    	 parts = Fecha1.split("/");
+    	 if (parts.length==3){
+    	 	 val = Integer.parseInt(parts[2]+parts[1]+parts[0]);
+    	 }   
+    	 
+    	 String[] parts2 ;
+    	 int val2 = 0;
+    	 parts2 = Fecha2.split("/");
+    	 if (parts.length==3){
+    	 	 val = Integer.parseInt(parts2[2]+parts2[1]+parts2[0]);
+    	 }
+		
+		 /*
+		 System.out.println("val		: " +val);
+		 System.out.println("D1		: " + parts[0]);
+		 System.out.println("M1		: " + parts[1]);
+		 System.out.println("D1		: " + parts[2]);
+		 
+		 	 System.out.println("D2		: " + parts2[0]);
+		 System.out.println("M2		: " + parts2[1]);
+		 System.out.println("Y2		: " + parts2[2]);
+		 
+		 */
+		 int D1 = Integer.parseInt(parts[0]);
+		 int M1 = Integer.parseInt(parts[1]);
+		 int Y1 = Integer.parseInt(parts[2]);
+		 //System.out.println("Fecha2		: " + fechaToString(pFecha2));
+		 int D2 = Integer.parseInt(parts2[0]);
+		 int M2 = Integer.parseInt(parts2[1]);
+		 int Y2 = Integer.parseInt(parts2[2]);
+		 
+
+	
+		 java.util.GregorianCalendar date=new java.util.GregorianCalendar(Y1,M1,D1);
+		 java.util.GregorianCalendar date2=new java.util.GregorianCalendar(Y2,M2,D2);
+		 
+		 long difms=date2.getTimeInMillis() - date.getTimeInMillis();
+		 long difd=difms / (1000 * 60 * 60 * 24);
+		 
+		 return difd;
+		 }
+	 
+	 
+	 
 	
 	
 }
