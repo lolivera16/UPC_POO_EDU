@@ -318,7 +318,7 @@ public class AdmVentaTest {
 
 
 
-public  void cargarCursos(){
+	public  void cargarCursos(){
 		
 		List<Venta> olstCurso = new ArrayList<Venta>();
 		Venta objVenta = new Venta();
@@ -365,7 +365,7 @@ public  void cargarCursos(){
 	}
 	
 	
-void cargarMovimientos(){
+	void cargarMovimientos(){
 		
 		Venta objVenta;
 		
