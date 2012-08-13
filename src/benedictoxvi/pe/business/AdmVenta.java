@@ -311,9 +311,7 @@ String msg_err = "";
 			Comprobante = "BOLETA";
 		}else{
 			Comprobante = "FACTURA";
-		}
-		
-	
+		}	
 		
 		
 		if (objVal.isSet(msg_err)){
@@ -361,12 +359,13 @@ String msg_err = "";
 					if( difDias  > 0){
 						Mora = difDias * 0.01 * oCuota2.getMontoCronograma();						
 					}
+					
 					System.out.println("--"  + n + ". Cuota " + oCuota2.getNroCuota() + " " 
 							+ oCurso.getNomCurso() + " --> " + oCuota2.getMontoCronograma() 
 							+ " \n 		Fecha Vencimiento : " + fechaToString(oCuota2.getFechaVencimientoCronograma())
 							+ " Mora : " + Mora							 
 							);
-					
+					fecha = fechaToString(oCuota2.getFechaVencimientoCronograma());
 					TotalMora = TotalMora + Mora;
 					
 					MontoTotal = MontoTotal + oCuota2.getMontoCronograma();
@@ -381,8 +380,31 @@ String msg_err = "";
 			System.out.println("Sub Total		: " + MontoTotal);
 			System.out.println("IGV			: " + Igv);
 		}
-		System.out.println("Total			: " + ( Igv + MontoTotal + TotalMora));
+		Double ImporteTotal = ( Igv + MontoTotal + TotalMora);
+		System.out.println("Total			: " + ImporteTotal);
 		System.out.println("");
+		
+		objVenta.setNumero(nroMovimiento);
+		objVenta.setCodTipoDocumento(tipoComprobante);
+		objVenta.setCodCurso(oCurso.getCodCurso());
+		objVenta.setNomCurso(oCurso.getNomCurso());		
+		objVenta.setCodCliente(CodCliente);
+		objVenta.setNomCliente(objCliente.getNomCliente());
+		objVenta.setNroRucCliente(RUC);
+		objVenta.setConcepto(oCurso.getNomCurso());
+		objVenta.setFecEmision(fechaToString(FechaActual));		
+		objVenta.setMonSubtot(MontoTotal);
+		objVenta.setMonIGV(Igv);
+		objVenta.setMonTotal(ImporteTotal);
+		objVenta.setMoneda(oCuenta.getMoneda());
+		objVenta.setFecVencim(fecha);
+		objVenta.setEstado("A");
+		objVenta.setFecPago(fechaToString(FechaActual));
+		objVenta.setObservacion("Pago cuota");		 
+		
+		arrVenta.add(objVenta);
+		
+		
 		return true;
 	}
 
