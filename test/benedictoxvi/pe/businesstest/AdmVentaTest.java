@@ -25,19 +25,16 @@ public class AdmVentaTest {
 	AdmVenta objAdmVenta = new AdmVenta();
 	ArrayList<Venta> arrVenta  = new ArrayList<Venta>();
 
-	ArrayList<Venta> arrMovimiento  = new ArrayList<Venta>();
+	static ArrayList<Venta> arrMovimiento  = new ArrayList<Venta>();
 	
-	@Before
-	public void cargarData(){
-		
-		/**/
-		 System.out.println("+----- Listado de Cursos-----+");
-		 
+	@BeforeClass
+	public static void  cargarData(){
+		System.out.println("+----- Listado de Cursos-----+");		 
 		cargarCursos();
 		System.out.println("");
-		System.out.println("+----- Listado Clientes-----+");
+		System.out.println("+----- Listado Clientes ------+");
 		cargarCliente();
-		System.out.println("");
+		System.out.println("");		
 		System.out.println("+----- Listado Movimientos-----+");
 		cargarMovimientos();
 		System.out.println("");
@@ -141,7 +138,7 @@ public class AdmVentaTest {
 		 String Observ = "Sin Observaciones";
 		 String concepto = "Pago Matricula del curso POO";
 		
-		assertTrue(objAdmVenta.registrarPagoConFactura(arrVenta,
+		assertTrue(objAdmVenta.registrarPagoConFactura(arrMovimiento,
 															nroMovimiento, 
 															CodTipoDocumento, 
 															CodCurso,
@@ -190,7 +187,7 @@ public class AdmVentaTest {
 			 oVenCuota.setNroCuota(4);
 			 arrNroCuota.add(oVenCuota);
 			 */
-			 assertTrue(objAdmVenta.registraPagoBoletaFactura(arrVenta,
+			 assertTrue(objAdmVenta.registraPagoBoletaFactura(arrMovimiento,
 			 										NroMovimiento,
 			 										TipoComprobante,
 			 										NroBoleta,
@@ -205,7 +202,7 @@ public class AdmVentaTest {
 	
 		//Pago la tercera cuota con Factura
 		@Test
-		public void registrarPagoFactura(){
+		public void registrarPagoFacturaCuota1_2(){
 			System.out.println("+--------------- Pago Factura ---------------+");
 			 int NroMovimiento = 8;		
 			 String TipoComprobante = "2";		
@@ -227,7 +224,43 @@ public class AdmVentaTest {
 			 arrNroCuota.add(oVenCuota);
 			 
 			 
-			 assertTrue(objAdmVenta.registraPagoBoletaFactura(arrVenta,
+			 assertTrue(objAdmVenta.registraPagoBoletaFactura(arrMovimiento,
+			 										NroMovimiento,
+			 										TipoComprobante,
+			 										NroBoleta,
+													RUC,
+													CodCliente,
+													CodCuenta,
+													arrNroCuota,
+													UsuarioRegistro													
+													));			 
+		}			
+		
+		
+		@Test
+		public void registrarPagoFacturaCuota3(){
+			System.out.println("+--------------- Pago Factura ---------------+");
+			 int NroMovimiento = 9;		
+			 String TipoComprobante = "2";		
+			 String NroBoleta = "FC-000002";
+			 String RUC = "11045820790";			 
+			 String Observacion = "Pago en efectivo";
+			 String UsuarioRegistro = "pmora";		
+			 Date FechaRegistro;
+			 
+			 String CodCliente = "C1015";
+			 String CodCuenta = "CU000002";
+			 List<Venta> arrNroCuota = new ArrayList<Venta>();
+			 Venta oVenCuota = null;
+			 oVenCuota = new Venta();
+			 oVenCuota.setNroCuota(3); 
+			 arrNroCuota.add(oVenCuota);
+			 /*oVenCuota = new Venta();
+			 oVenCuota.setNroCuota(2);
+			 arrNroCuota.add(oVenCuota);
+			 */
+			 
+			 assertTrue(objAdmVenta.registraPagoBoletaFactura(arrMovimiento,
 			 										NroMovimiento,
 			 										TipoComprobante,
 			 										NroBoleta,
@@ -238,8 +271,42 @@ public class AdmVentaTest {
 													UsuarioRegistro													
 													));			 
 		}
-				
-				
+		
+		@Test
+		public void registrarPagoBoletaCuota2(){
+			System.out.println("+--------------- Pago Boleta ---------------+");
+			 int NroMovimiento = 10;		
+			 String TipoComprobante = "1";		
+			 String NroBoleta = "BV-000133";
+			 String RUC = "";			 
+			 String Observacion = "Pago en efectivo";
+			 String UsuarioRegistro  = "eLopez";		
+			 Date FechaRegistro;
+			 
+			 String CodCliente = "C1010";
+			 String CodCuenta = "CU000001";
+			 List<Venta> arrNroCuota = new ArrayList<Venta>();
+			 Venta oVenCuota = null;
+			 oVenCuota = new Venta();
+			 oVenCuota.setNroCuota(3); 
+			 arrNroCuota.add(oVenCuota);
+			 /*
+			 oVenCuota = new Venta();
+			 oVenCuota.setNroCuota(4);
+			 arrNroCuota.add(oVenCuota);
+			 */
+			 assertTrue(objAdmVenta.registraPagoBoletaFactura(arrMovimiento,
+			 										NroMovimiento,
+			 										TipoComprobante,
+			 										NroBoleta,
+													RUC,
+													CodCliente,
+													CodCuenta,
+													arrNroCuota,
+													UsuarioRegistro													
+													));			 
+		}
+		
 	
 	
 	@Test 
@@ -315,23 +382,38 @@ public class AdmVentaTest {
 		
 	}
 	
+	@Test
+	public void resumenMovimientos(){
+		System.out.println("+---------- Resumen de Movimientos ----------+");
+		listarMovimientos();
+		
+		Double SumTotal = 0.0;
+		for(Venta oMovi : arrMovimiento){
+			SumTotal  = SumTotal  + oMovi.getMonTotal();			
+		}	
+		System.out.println("Monto total Facturado =" + SumTotal);
+		System.out.println("");
+		
+	}
+	
 
 
 
-	public  void cargarCursos(){
+	public static  void cargarCursos(){
 		
 		List<Venta> olstCurso = new ArrayList<Venta>();
 		Venta objVenta = new Venta();
 		olstCurso = objVenta.getDataCursos();		
+		
 		for( Venta oVenta : olstCurso ){
 			System.out.println("Codigo Curso : " + oVenta.getCodCurso() + 
 					" Nombre Curso :" + oVenta.getNomCurso() +
 					" Precio Curso :" + oVenta.getPreCurso());
 		}
-		
+		/**/
 	}
 	
-	public void cargarCliente(){
+	public static void cargarCliente(){
 		DataBD objData = new DataBD();
 		List<Cliente> olstCliente = new ArrayList<Cliente>();
 		olstCliente = objData.getDataCliente();
@@ -365,7 +447,7 @@ public class AdmVentaTest {
 	}
 	
 	
-	void cargarMovimientos(){
+	static void cargarMovimientos(){
 		
 		Venta objVenta;
 		
