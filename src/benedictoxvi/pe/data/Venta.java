@@ -82,9 +82,7 @@ public class Venta extends Movimiento implements Comparator<Venta>{
 		}
 		
 		if(CodCurso == "C01"){
-			NomCurso = "POO";
-		}else{
-			NomCurso = "Sin Curso";
+			NomCurso = "POO";		
 		}
 		
 		
